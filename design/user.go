@@ -9,10 +9,9 @@ import (
 
 // Partner Gateway sandbox provisioning API document
 var _ = Service("user", func() {
-	Title("Sandbox User Provisioning")
 
-	Error("bad_request", StatusBadRequest, "invalid data was sent in the request")
-	Error("internal_error", StatusInternalServerError, "check log for information")
+	Error("internal_error", ErrorResult, "check log for information")
+	Error("bad_request", ErrorResult, "invalid data was sent in the request")
 
 	HTTP(func() {
 		Path("/v1_0/apiuser")
@@ -26,7 +25,20 @@ var _ = Service("user", func() {
 	Method("create", func() {
 		Description("Used to create an API user in the sandbox target environment")
 		Payload(ApiUser)
+		Payload(func() {
+			Attribute("X-Reference-Id", String, func() {
+				Description("Resource ID of the created request.")
+				Example("c72025f5-5cd1-4630-99e4-8ba4722fad56")
+			})
+
+			Attribute("Ocp-Apim-Subscription-Key", String, func() {
+				Description("Subscription Key.")
+				Example("d484a1f0d34f4301916d0f2c9e9106a2")
+			})
+			Required("X-Reference-Id", "Ocp-Apim-Subscription-Key")
+		})
 		Result(String)
+		Result(ErrorReason)
 		HTTP(func() {
 			POST("/")
 			Headers(func() {
@@ -34,21 +46,20 @@ var _ = Service("user", func() {
 				// This ID is used, for example,
 				// validating the status of the request.
 				// ‘Universal Unique ID’ for the transaction generated using UUID version 4.
-				Header("X-Reference-Id", String, func() {
+				Header("X-Reference-Id: X-Reference-Id", String, func() {
 					Description("Resource ID of the created request to pay transaction.")
 					Example("c72025f5-5cd1-4630-99e4-8ba4722fad56")
 				})
 
-				Header("Ocp-Apim-Subscription-Key", String, func() {
+				Header("Ocp-Apim-Subscription-Key: Ocp-Apim-Subscription-Key", String, func() {
 					Description("Subscription key which provides access to this API")
 					Example("d484a1f0d34f4301916d0f2c9e9106a2")
 				})
 				Required("X-Reference-Id", "Ocp-Apim-Subscription-Key")
 			})
 			Response(StatusCreated)
-			Response("bad_request")
-			Response("internal_error")
-			Response(ErrorReason)
+			Response("bad_request", StatusBadRequest)
+			Response("internal_error", StatusInternalServerError)
 		})
 	})
 
@@ -61,7 +72,15 @@ var _ = Service("user", func() {
 	Method("create", func() {
 		Description("Used to create an API key for an API user in the sandbox target environment.")
 		Payload(ApiUserKeyResult)
+		Payload(func() {
+			Attribute("Ocp-Apim-Subscription-Key", String, func() {
+				Description("Subscription key which provides access to this API")
+				Example("d484a1f0d34f4301916d0f2c9e9106a2")
+			})
+			Required("Ocp-Apim-Subscription-Key")
+		})
 		Result(String)
+		Result(ErrorReason)
 		HTTP(func() {
 			POST("/{X-Reference-Id}/apikey")
 			Params(func() {
@@ -76,22 +95,38 @@ var _ = Service("user", func() {
 				Required("X-Reference-Id")
 			})
 			Headers(func() {
-				Header("Ocp-Apim-Subscription-Key", String, func() {
+				Header("Ocp-Apim-Subscription-Key: Ocp-Apim-Subscription-Key", String, func() {
 					Description("Subscription key which provides access to this API")
 					Example("d484a1f0d34f4301916d0f2c9e9106a2")
 				})
 				Required("Ocp-Apim-Subscription-Key")
 			})
 			Response(StatusCreated)
-			Response("bad_request")
-			Response("internal_error")
-			Response(ErrorReason)
+			Response("bad_request", StatusBadRequest)
+			Response("internal_error", StatusInternalServerError)
 		})
 	})
 
 	Method("show", func() {
 		Description("Used to get API user information.")
 		Payload(func() {
+			Attribute("Ocp-Apim-Subscription-Key", String, func() {
+				Description("Subscription key which provides access to this API")
+				Example("d484a1f0d34f4301916d0f2c9e9106a2")
+			})
+			Required("Ocp-Apim-Subscription-Key")
+		})
+		Result(String)
+		Result(ErrorReason)
+		HTTP(func() {
+			GET("/{X-Reference-Id}")
+			Headers(func() {
+				Header("Ocp-Apim-Subscription-Key: Ocp-Apim-Subscription-Key", String, func() {
+					Description("Subscription key which provides access to this API")
+					Example("d484a1f0d34f4301916d0f2c9e9106a2")
+				})
+				Required("Ocp-Apim-Subscription-Key")
+			})
 			Params(func() {
 
 				// This ID is used, for example,
@@ -103,21 +138,9 @@ var _ = Service("user", func() {
 				})
 				Required("X-Reference-Id")
 			})
-		})
-		Result(String)
-		HTTP(func() {
-			GET("/{X-Reference-Id}")
-			Headers(func() {
-				Header("Ocp-Apim-Subscription-Key", String, func() {
-					Description("Subscription key which provides access to this API")
-					Example("d484a1f0d34f4301916d0f2c9e9106a2")
-				})
-				Required("Ocp-Apim-Subscription-Key")
-			})
 			Response(StatusOK)
-			Response("bad_request")
-			Response("internal_error")
-			Response(ErrorReason)
+			Response("bad_request", StatusBadRequest)
+			Response("internal_error", StatusInternalServerError)
 		})
 	})
 
@@ -130,6 +153,23 @@ var _ = Service("user", func() {
 	Method("show", func() {
 		Description("GET API User Details")
 		Payload(func() {
+			Attribute("Ocp-Apim-Subscription-Key", String, func() {
+				Description("Subscription key which provides access to this API")
+				Example("d484a1f0d34f4301916d0f2c9e9106a2")
+			})
+			Required("Ocp-Apim-Subscription-Key")
+		})
+		Result(ApiUserResult)
+		Result(ErrorReason)
+		HTTP(func() {
+			GET("/apiuser/{APIUser}")
+			Headers(func() {
+				Header("Ocp-Apim-Subscription-Key: Ocp-Apim-Subscription-Key", String, func() {
+					Description("Subscription key which provides access to this API")
+					Example("d484a1f0d34f4301916d0f2c9e9106a2")
+				})
+				Required("Ocp-Apim-Subscription-Key")
+			})
 			Params(func() {
 				Param("APIUser", String, func() {
 					Description("API User.")
@@ -137,21 +177,9 @@ var _ = Service("user", func() {
 				})
 				Required("APIUser")
 			})
-		})
-		Result(ApiUserResult)
-		HTTP(func() {
-			GET("/apiuser/{APIUser}")
-			Headers(func() {
-				Header("Ocp-Apim-Subscription-Key", String, func() {
-					Description("Subscription key which provides access to this API")
-					Example("d484a1f0d34f4301916d0f2c9e9106a2")
-				})
-				Required("Ocp-Apim-Subscription-Key")
-			})
 			Response(StatusOK)
-			Response("bad_request")
-			Response("internal_error")
-			Response(ErrorReason)
+			Response("bad_request", StatusBadRequest)
+			Response("internal_error", StatusInternalServerError)
 		})
 	})
 })

@@ -28,7 +28,7 @@ var _ = API("momo", func() {
 	})
 	Server("momo", func() {
 		Description("momo hosts all MTN's MoMo Services.")
-		Services("momo")
+		Services("collection", "disbursement", "remittance", "user")
 		Host("local", func() {
 			Description("Localhost")
 			URI("http://localhost:3000")
