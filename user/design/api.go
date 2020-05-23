@@ -8,9 +8,9 @@ import (
 )
 
 // API describes the global properties of the API server.
-var _ = API("momo", func() {
-	Title("MTN MoMo APIs")
-	Description("HTTP Service for accessing MTN's MoMo APIs.")
+var _ = API("user", func() {
+	Title("MoMo User API")
+	Description("HTTP Service for accessing MTN's MoMo User API.")
 	Version("1.0")
 	TermsOfService("https://github.com/wondenge/momo-go/blob/master/LICENCE")
 	Contact(func() {
@@ -26,9 +26,9 @@ var _ = API("momo", func() {
 		Description("Library Usage")
 		URL("https://github.com/wondenge/momo-go/blob/master/README.md")
 	})
-	Server("momo", func() {
-		Description("momo hosts all MTN's MoMo Services.")
-		Services("collection", "disbursement", "remittance", "user")
+	Server("user", func() {
+		Description("user hosts MTN's MoMo User Services.")
+		Services("user")
 		Host("local", func() {
 			Description("Localhost")
 			URI("http://localhost:3000")

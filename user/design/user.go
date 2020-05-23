@@ -1,6 +1,7 @@
 package design
 
 import (
+	. "github.com/wondenge/momo-go/momo"
 	. "goa.design/goa/v3/dsl"
 	_ "goa.design/plugins/v3/docs"      // Generates documentation
 	_ "goa.design/plugins/v3/goakit"    // Enables goakit
@@ -22,7 +23,7 @@ var _ = Service("user", func() {
 	// b) The Provider specifies the UUID Reference ID in the request Header and the subscription Key.
 	// c) Reference ID will be used as the User ID for the API user to be created.
 	// d) Wallet Platform creates the User and responds with 201
-	Method("create", func() {
+	Method("createuser", func() {
 		Description("Used to create an API user in the sandbox target environment")
 		Payload(ApiUser)
 		Payload(func() {
@@ -69,31 +70,28 @@ var _ = Service("user", func() {
 	// c) Wallet Platform creates the API Key and responds with 201 Created with the newly
 	// Created API Key in the Body.
 	// d) Provider now has both API User and API Key created.
-	Method("create", func() {
+	Method("createkey", func() {
 		Description("Used to create an API key for an API user in the sandbox target environment.")
 		Payload(ApiUserKeyResult)
 		Payload(func() {
+
+			// This ID is used, for example,
+			// validating the status of the request.
+			// ‘Universal Unique ID’ for the transaction generated using UUID version 4.
+			Attribute("X-Reference-Id", String, func() {
+				Description("Resource ID of the created request to pay transaction.")
+				Example("c72025f5-5cd1-4630-99e4-8ba4722fad56")
+			})
 			Attribute("Ocp-Apim-Subscription-Key", String, func() {
 				Description("Subscription key which provides access to this API")
 				Example("d484a1f0d34f4301916d0f2c9e9106a2")
 			})
-			Required("Ocp-Apim-Subscription-Key")
+			Required("X-Reference-Id", "Ocp-Apim-Subscription-Key")
 		})
 		Result(String)
 		Result(ErrorReason)
 		HTTP(func() {
 			POST("/{X-Reference-Id}/apikey")
-			Params(func() {
-
-				// This ID is used, for example,
-				// validating the status of the request.
-				// ‘Universal Unique ID’ for the transaction generated using UUID version 4.
-				Param("X-Reference-Id", String, func() {
-					Description("Resource ID of the created request to pay transaction.")
-					Example("c72025f5-5cd1-4630-99e4-8ba4722fad56")
-				})
-				Required("X-Reference-Id")
-			})
 			Headers(func() {
 				Header("Ocp-Apim-Subscription-Key: Ocp-Apim-Subscription-Key", String, func() {
 					Description("Subscription key which provides access to this API")
@@ -107,14 +105,22 @@ var _ = Service("user", func() {
 		})
 	})
 
-	Method("show", func() {
+	Method("list", func() {
 		Description("Used to get API user information.")
 		Payload(func() {
+
+			// This ID is used, for example,
+			// validating the status of the request.
+			// ‘Universal Unique ID’ for the transaction generated using UUID version 4.
+			Attribute("X-Reference-Id", String, func() {
+				Description("Resource ID of the created request to pay transaction.")
+				Example("c72025f5-5cd1-4630-99e4-8ba4722fad56")
+			})
 			Attribute("Ocp-Apim-Subscription-Key", String, func() {
 				Description("Subscription key which provides access to this API")
 				Example("d484a1f0d34f4301916d0f2c9e9106a2")
 			})
-			Required("Ocp-Apim-Subscription-Key")
+			Required("X-Reference-Id", "Ocp-Apim-Subscription-Key")
 		})
 		Result(String)
 		Result(ErrorReason)
@@ -126,17 +132,6 @@ var _ = Service("user", func() {
 					Example("d484a1f0d34f4301916d0f2c9e9106a2")
 				})
 				Required("Ocp-Apim-Subscription-Key")
-			})
-			Params(func() {
-
-				// This ID is used, for example,
-				// validating the status of the request.
-				// ‘Universal Unique ID’ for the transaction generated using UUID version 4.
-				Param("X-Reference-Id", String, func() {
-					Description("Resource ID of the created request to pay transaction.")
-					Example("c72025f5-5cd1-4630-99e4-8ba4722fad56")
-				})
-				Required("X-Reference-Id")
 			})
 			Response(StatusOK)
 			Response("bad_request", StatusBadRequest)
@@ -153,11 +148,15 @@ var _ = Service("user", func() {
 	Method("show", func() {
 		Description("GET API User Details")
 		Payload(func() {
+			Attribute("APIUser", String, func() {
+				Description("API User.")
+				Example("c72025f5-5cd1-4630-99e4-8ba4722fad56")
+			})
 			Attribute("Ocp-Apim-Subscription-Key", String, func() {
 				Description("Subscription key which provides access to this API")
 				Example("d484a1f0d34f4301916d0f2c9e9106a2")
 			})
-			Required("Ocp-Apim-Subscription-Key")
+			Required("APIUser", "Ocp-Apim-Subscription-Key")
 		})
 		Result(ApiUserResult)
 		Result(ErrorReason)
@@ -169,13 +168,6 @@ var _ = Service("user", func() {
 					Example("d484a1f0d34f4301916d0f2c9e9106a2")
 				})
 				Required("Ocp-Apim-Subscription-Key")
-			})
-			Params(func() {
-				Param("APIUser", String, func() {
-					Description("API User.")
-					Example("c72025f5-5cd1-4630-99e4-8ba4722fad56")
-				})
-				Required("APIUser")
 			})
 			Response(StatusOK)
 			Response("bad_request", StatusBadRequest)
