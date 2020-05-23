@@ -1,0 +1,620 @@
+swagger: "2.0"
+info:
+  title: MoMo Collection API
+  description: HTTP Service for accessing MTN's MoMo Collection API.
+  termsOfService: https://github.com/wondenge/momo-go/blob/master/LICENCE
+  contact:
+    name: William Ondenge
+    email: ondengew@gmail.com
+    url: https://www.ondenge.me
+  license:
+    name: Apache License
+    url: https://github.com/wondenge/momo-go/blob/master/LICENCE
+  version: "1.0"
+host: localhost:3000
+consumes:
+- application/json
+- application/xml
+- application/gob
+produces:
+- application/json
+- application/xml
+- application/gob
+paths:
+  /collection/token:
+    post:
+      tags:
+      - token
+      summary: create token
+      description: Creates an Access Token.
+      operationId: token#create
+      parameters:
+      - name: ' Ocp-Apim-Subscription-Key'
+        in: header
+        description: Subscription key which provides access to this API
+        required: true
+        type: string
+      - name: Authorization
+        in: header
+        description: Basic Auth security using Basic scheme (https://tools.ietf.org/html/rfc7617)
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            $ref: '#/definitions/TokenCreateResponseBody'
+        "500":
+          description: Internal Server Error response.
+          schema:
+            $ref: '#/definitions/TokenCreateInternalErrorResponseBody'
+      schemes:
+      - http
+      security:
+      - basic_header_Authorization: []
+  /collection/v1_0/account/balance:
+    get:
+      tags:
+      - getbalance
+      summary: show getbalance
+      description: |-
+        Get the balance of the account
+
+        **Required security scopes for jwt**:
+          * `api:read`
+      operationId: getbalance#show
+      parameters:
+      - name: ' Authorization'
+        in: header
+        description: Authorization header for Basic authentication & oauth
+        required: false
+        type: string
+        pattern: ^Bearer [^ ]+$
+      - name: ' X-Target-Environment'
+        in: header
+        description: The identifier of the EWP system where the transaction shall be processed
+        required: true
+        type: string
+      - name: ' Ocp-Apim-Subscription-Key'
+        in: header
+        description: Subscription key which provides access to this API
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            $ref: '#/definitions/GetbalanceShowResponseBody'
+        "400":
+          description: Bad Request response.
+          schema:
+            $ref: '#/definitions/GetbalanceShowBadRequestResponseBody'
+      schemes:
+      - http
+      security:
+      - jwt_header_ Authorization: []
+  /collection/v1_0/accountholder/{accountHolderIdType}/{accountHolderId}/active:
+    get:
+      tags:
+      - validate
+      summary: show validate
+      description: |-
+        Checks if an account holder is registered and active in the system
+
+        **Required security scopes for jwt**:
+          * `api:read`
+      operationId: validate#show
+      parameters:
+      - name: accountHolderIdType
+        in: path
+        description: Specifies the type of the party ID
+        required: true
+        type: string
+      - name: accountHolderId
+        in: path
+        description: The party number.
+        required: true
+        type: string
+      - name: ' Authorization'
+        in: header
+        description: Authorization header for Basic authentication & oauth
+        required: false
+        type: string
+        pattern: ^Bearer [^ ]+$
+      - name: ' X-Target-Environment'
+        in: header
+        description: The identifier of the EWP system where the transaction shall be processed
+        required: true
+        type: string
+      - name: ' Ocp-Apim-Subscription-Key'
+        in: header
+        description: Subscription key which provides access to this API
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            $ref: '#/definitions/ValidateShowResponseBody'
+        "400":
+          description: Bad Request response.
+          schema:
+            $ref: '#/definitions/ValidateShowBadRequestResponseBody'
+      schemes:
+      - http
+      security:
+      - jwt_header_ Authorization: []
+  /collection/v1_0/requesttopay:
+    post:
+      tags:
+      - requestopay
+      summary: create requestopay
+      description: |-
+        Request a payment from a consumer (Payer).
+
+        **Required security scopes for jwt**:
+          * `api:read`
+      operationId: requestopay#create
+      parameters:
+      - name: ' Authorization'
+        in: header
+        description: ' Authorization header used for Basic authentication and oauth'
+        required: false
+        type: string
+      - name: ' X-Callback-Url'
+        in: header
+        description: URL to the server where the callback should be sent.
+        required: false
+        type: string
+      - name: ' X-Reference-Id'
+        in: header
+        description: Resource ID of the created request to pay transaction.
+        required: true
+        type: string
+      - name: ' X-Target-Environment'
+        in: header
+        description: The identifier of the EWP system where the transaction shall be processed.
+        required: true
+        type: string
+      - name: ' Ocp-Apim-Subscription-Key'
+        in: header
+        description: Subscription key which provides access to this API
+        required: true
+        type: string
+      responses:
+        "202":
+          description: Accepted response.
+          schema:
+            $ref: '#/definitions/RequestopayCreateResponseBody'
+        "400":
+          description: Bad Request response.
+          schema:
+            $ref: '#/definitions/RequestopayCreateBadRequestResponseBody'
+      schemes:
+      - http
+      security:
+      - jwt_header_ Authorization: []
+  /collection/v1_0/requesttopay/{referenceId}:
+    get:
+      tags:
+      - requestopay
+      summary: get requestopay
+      description: |-
+        Get the status of a request to pay.
+
+        **Required security scopes for jwt**:
+          * `api:read`
+      operationId: requestopay#get
+      parameters:
+      - name: referenceId
+        in: path
+        description: ' UUID of transaction to get result'
+        required: true
+        type: string
+      - name: ' Authorization'
+        in: header
+        description: ' Authorization header used for Basic authentication and oauth'
+        required: false
+        type: string
+      - name: ' X-Target-Environment'
+        in: header
+        description: The identifier of the EWP system where the transaction shall be processed.
+        required: true
+        type: string
+      - name: ' Ocp-Apim-Subscription-Key'
+        in: header
+        description: Subscription key which provides access to this API
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            $ref: '#/definitions/RequestopayGetResponseBody'
+        "400":
+          description: Bad Request response.
+          schema:
+            $ref: '#/definitions/RequestopayGetBadRequestResponseBody'
+      schemes:
+      - http
+      security:
+      - jwt_header_ Authorization: []
+definitions:
+  GetbalanceShowBadRequestResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: true
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: false
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: true
+    description: invalid data was sent in the request (default view)
+    example:
+      fault: true
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: false
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  GetbalanceShowResponseBody:
+    title: 'Mediatype identifier: errorreason; view=default'
+    type: object
+    properties:
+      code:
+        type: string
+        example: PAYER_NOT_FOUND
+        enum:
+        - PAYEE_NOT_FOUND
+        - PAYER_NOT_FOUND
+        - NOT_ALLOWED
+        - NOT_ALLOWED_TARGET_ENVIRONMENT
+        - INVALID_CALLBACK_URL_HOST
+        - INVALID_CURRENCY
+        - SERVICE_UNAVAILABLE
+        - INTERNAL_PROCESSING_ERROR
+        - NOT_ENOUGH_FUNDS
+        - PAYER_LIMIT_REACHED
+        - PAYEE_NOT_ALLOWED_TO_RECEIVE
+        - PAYMENT_NOT_APPROVED
+        - RESOURCE_NOT_FOUND
+        - APPROVAL_REJECTED
+        - EXPIRED
+        - TRANSACTION_CANCELED
+        - RESOURCE_ALREADY_EXIST
+      message:
+        type: string
+        description: message
+        example: Payee does not exist
+    description: ShowResponseBody result type (default view)
+    example:
+      code: PAYER_NOT_FOUND
+      message: Payee does not exist
+  RequestopayCreateBadRequestResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: false
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: true
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: true
+    description: invalid data was sent in the request (default view)
+    example:
+      fault: true
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: false
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  RequestopayCreateResponseBody:
+    title: 'Mediatype identifier: errorreason; view=default'
+    type: object
+    properties:
+      code:
+        type: string
+        example: PAYER_NOT_FOUND
+        enum:
+        - PAYEE_NOT_FOUND
+        - PAYER_NOT_FOUND
+        - NOT_ALLOWED
+        - NOT_ALLOWED_TARGET_ENVIRONMENT
+        - INVALID_CALLBACK_URL_HOST
+        - INVALID_CURRENCY
+        - SERVICE_UNAVAILABLE
+        - INTERNAL_PROCESSING_ERROR
+        - NOT_ENOUGH_FUNDS
+        - PAYER_LIMIT_REACHED
+        - PAYEE_NOT_ALLOWED_TO_RECEIVE
+        - PAYMENT_NOT_APPROVED
+        - RESOURCE_NOT_FOUND
+        - APPROVAL_REJECTED
+        - EXPIRED
+        - TRANSACTION_CANCELED
+        - RESOURCE_ALREADY_EXIST
+      message:
+        type: string
+        description: message
+        example: Payee does not exist
+    description: CreateResponseBody result type (default view)
+    example:
+      code: PAYER_NOT_FOUND
+      message: Payee does not exist
+  RequestopayGetBadRequestResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: false
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: true
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: false
+    description: invalid data was sent in the request (default view)
+    example:
+      fault: false
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: false
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  RequestopayGetResponseBody:
+    title: 'Mediatype identifier: errorreason; view=default'
+    type: object
+    properties:
+      code:
+        type: string
+        example: PAYER_NOT_FOUND
+        enum:
+        - PAYEE_NOT_FOUND
+        - PAYER_NOT_FOUND
+        - NOT_ALLOWED
+        - NOT_ALLOWED_TARGET_ENVIRONMENT
+        - INVALID_CALLBACK_URL_HOST
+        - INVALID_CURRENCY
+        - SERVICE_UNAVAILABLE
+        - INTERNAL_PROCESSING_ERROR
+        - NOT_ENOUGH_FUNDS
+        - PAYER_LIMIT_REACHED
+        - PAYEE_NOT_ALLOWED_TO_RECEIVE
+        - PAYMENT_NOT_APPROVED
+        - RESOURCE_NOT_FOUND
+        - APPROVAL_REJECTED
+        - EXPIRED
+        - TRANSACTION_CANCELED
+        - RESOURCE_ALREADY_EXIST
+      message:
+        type: string
+        description: message
+        example: Payee does not exist
+    description: GetResponseBody result type (default view)
+    example:
+      code: PAYER_NOT_FOUND
+      message: Payee does not exist
+  TokenCreateInternalErrorResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: false
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: false
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: false
+    description: check log for information (default view)
+    example:
+      fault: false
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: false
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  TokenCreateResponseBody:
+    title: TokenCreateResponseBody
+    type: object
+    properties:
+      error:
+        type: string
+        description: An error code.
+        example: Veniam in quia aperiam non eligendi ea.
+    example:
+      error: Natus ut totam asperiores inventore perferendis.
+  ValidateShowBadRequestResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: true
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: false
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: false
+    description: invalid data was sent in the request (default view)
+    example:
+      fault: true
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: false
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  ValidateShowResponseBody:
+    title: 'Mediatype identifier: errorreason; view=default'
+    type: object
+    properties:
+      code:
+        type: string
+        example: PAYER_NOT_FOUND
+        enum:
+        - PAYEE_NOT_FOUND
+        - PAYER_NOT_FOUND
+        - NOT_ALLOWED
+        - NOT_ALLOWED_TARGET_ENVIRONMENT
+        - INVALID_CALLBACK_URL_HOST
+        - INVALID_CURRENCY
+        - SERVICE_UNAVAILABLE
+        - INTERNAL_PROCESSING_ERROR
+        - NOT_ENOUGH_FUNDS
+        - PAYER_LIMIT_REACHED
+        - PAYEE_NOT_ALLOWED_TO_RECEIVE
+        - PAYMENT_NOT_APPROVED
+        - RESOURCE_NOT_FOUND
+        - APPROVAL_REJECTED
+        - EXPIRED
+        - TRANSACTION_CANCELED
+        - RESOURCE_ALREADY_EXIST
+      message:
+        type: string
+        description: message
+        example: Payee does not exist
+    description: ShowResponseBody result type (default view)
+    example:
+      code: PAYER_NOT_FOUND
+      message: Payee does not exist
+securityDefinitions:
+  basic_header_Authorization:
+    type: basic
+    description: |-
+      Basic authentication used to authenticate security principal during signin
+
+      **Security Scopes**:
+        * `api:read`: Read-only access
+  jwt_header_ Authorization:
+    type: apiKey
+    description: |-
+      Secures endpoint by requiring a valid JWT token retrieved via the signin endpoint.
+
+      **Security Scopes**:
+        * `api:read`: Read-only access
+        * `api:write`: Read and write access
+    name: ' Authorization'
+    in: header
+externalDocs:
+  description: Library Usage
+  url: https://github.com/wondenge/momo-go/blob/master/README.md

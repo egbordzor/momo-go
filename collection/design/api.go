@@ -28,7 +28,7 @@ var _ = API("collection", func() {
 	})
 	Server("collection", func() {
 		Description("collection hosts MTN's MoMo Collection Services.")
-		Services("collection")
+		Services("token", "validate", "getbalance", "requestopay")
 		Host("local", func() {
 			Description("Localhost")
 			URI("http://localhost:3000")
