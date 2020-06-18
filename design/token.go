@@ -53,17 +53,17 @@ var TokenPost200ApplicationJsonResponse = ResultType("TokenPost200ApplicationJso
 })
 
 var TokenPost401ApplicationJsonResponse = ResultType("TokenPost401ApplicationJsonResponse", func() {
-	Description("TokenPost401ApplicationJsonResponse")
+	Description("Token Post401 Application Json Response")
 	TypeName("TokenPost401ApplicationJsonResponse")
 	ContentType("application/json")
 
 	Attributes(func() {
-		Attribute("error", String, func() {
+		Attribute("token_error", String, func() {
 			Description("An error code.")
 		})
 	})
 
 	View("default", func() {
-		Attribute("error")
+		Attribute("token_error")
 	})
 })

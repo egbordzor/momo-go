@@ -799,13 +799,13 @@ definitions:
     title: 'Mediatype identifier: tokenpost401applicationjsonresponse; view=default'
     type: object
     properties:
-      error:
+      token_error:
         type: string
         description: An error code.
         example: Veniam sit doloribus qui ea nobis libero.
     description: Unauthorized (default view)
     example:
-      error: Qui est cupiditate autem dolorum nostrum ut.
+      token_error: Qui est cupiditate autem dolorum nostrum ut.
   CollectionPaymentRequestBadRequestResponseBody:
     title: 'Mediatype identifier: application/vnd.goa.error; view=default'
     type: object
@@ -1411,13 +1411,13 @@ definitions:
     title: 'Mediatype identifier: tokenpost401applicationjsonresponse; view=default'
     type: object
     properties:
-      error:
+      token_error:
         type: string
         description: An error code.
         example: Placeat cumque dignissimos voluptatem.
     description: Unauthorized (default view)
     example:
-      error: Quam at temporibus corrupti cum.
+      token_error: Quam at temporibus corrupti cum.
   DisbursementRetrieveAccountHolderBadRequestResponseBody:
     title: 'Mediatype identifier: application/vnd.goa.error; view=default'
     type: object
@@ -2100,13 +2100,13 @@ definitions:
     title: 'Mediatype identifier: tokenpost401applicationjsonresponse; view=default'
     type: object
     properties:
-      error:
+      token_error:
         type: string
         description: An error code.
         example: Reprehenderit maxime optio provident optio.
     description: Unauthorized (default view)
     example:
-      error: Non adipisci quo dolorem error temporibus explicabo.
+      token_error: Non adipisci quo dolorem error temporibus explicabo.
   RemittanceRetrieveAccountHolderBadRequestResponseBody:
     title: 'Mediatype identifier: application/vnd.goa.error; view=default'
     type: object

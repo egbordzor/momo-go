@@ -125,15 +125,15 @@ type ErrorReason struct {
 	Message *string
 }
 
-// TokenPost401ApplicationJsonResponse
+// Token Post401 Application Json Response
 type TokenPost401ApplicationJSONResponse struct {
 	// An error code.
-	Error *string
+	TokenError *string
 }
 
 // Error returns an error description.
 func (e *TokenPost401ApplicationJSONResponse) Error() string {
-	return "TokenPost401ApplicationJsonResponse"
+	return "Token Post401 Application Json Response"
 }
 
 // ErrorName returns "TokenPost401ApplicationJsonResponse".

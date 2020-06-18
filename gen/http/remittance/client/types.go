@@ -92,7 +92,7 @@ type NewTokenInternalErrorResponseBody struct {
 // "NewToken" endpoint HTTP response body for the "unauthorized" error.
 type NewTokenUnauthorizedResponseBody struct {
 	// An error code.
-	Error *string `form:"error,omitempty" json:"error,omitempty" xml:"error,omitempty"`
+	TokenError *string `form:"token_error,omitempty" json:"token_error,omitempty" xml:"token_error,omitempty"`
 }
 
 // GetBalanceBadRequestResponseBody is the type of the "remittance" service
@@ -347,7 +347,7 @@ func NewNewTokenInternalError(body *NewTokenInternalErrorResponseBody) *goa.Serv
 // unauthorized error.
 func NewNewTokenUnauthorized(body *NewTokenUnauthorizedResponseBody) *remittance.TokenPost401ApplicationJSONResponse {
 	v := &remittance.TokenPost401ApplicationJSONResponse{
-		Error: body.Error,
+		TokenError: body.TokenError,
 	}
 
 	return v

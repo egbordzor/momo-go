@@ -72,7 +72,7 @@ type TransferStatusResponseBody struct {
 // "NewToken" endpoint HTTP response body for the "unauthorized" error.
 type NewTokenUnauthorizedResponseBody struct {
 	// An error code.
-	Error *string `form:"error,omitempty" json:"error,omitempty" xml:"error,omitempty"`
+	TokenError *string `form:"token_error,omitempty" json:"token_error,omitempty" xml:"token_error,omitempty"`
 }
 
 // NewTokenInternalErrorResponseBody is the type of the "disbursement" service
@@ -345,7 +345,7 @@ func NewTransferStatusResponseBody(res *disbursementviews.TransferResultView) *T
 // result of the "NewToken" endpoint of the "disbursement" service.
 func NewNewTokenUnauthorizedResponseBody(res *disbursement.TokenPost401ApplicationJSONResponse) *NewTokenUnauthorizedResponseBody {
 	body := &NewTokenUnauthorizedResponseBody{
-		Error: res.Error,
+		TokenError: res.TokenError,
 	}
 	return body
 }

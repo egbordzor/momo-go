@@ -74,7 +74,7 @@ type PaymentStatusResponseBody struct {
 // "NewToken" endpoint HTTP response body for the "unauthorized" error.
 type NewTokenUnauthorizedResponseBody struct {
 	// An error code.
-	Error *string `form:"error,omitempty" json:"error,omitempty" xml:"error,omitempty"`
+	TokenError *string `form:"token_error,omitempty" json:"token_error,omitempty" xml:"token_error,omitempty"`
 }
 
 // NewTokenInternalErrorResponseBody is the type of the "collection" service
@@ -333,7 +333,7 @@ func NewNewTokenTokenPost200ApplicationJSONResponseOK(body *NewTokenResponseBody
 // unauthorized error.
 func NewNewTokenUnauthorized(body *NewTokenUnauthorizedResponseBody) *collection.TokenPost401ApplicationJSONResponse {
 	v := &collection.TokenPost401ApplicationJSONResponse{
-		Error: body.Error,
+		TokenError: body.TokenError,
 	}
 
 	return v
