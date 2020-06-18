@@ -53,18 +53,3 @@ var BasicAuth = BasicAuthSecurity("basic", func() {
 	Description("Basic authentication used to authenticate security principal during signin")
 	Scope("api:read", "Read-only access")
 })
-
-// JWTAuth defines a security scheme that uses JWT tokens.
-// Supports scopes "api:read" and "api:write"
-var JWTAuth = JWTSecurity("jwt", func() {
-	Description(`Secures endpoint by requiring a valid JWT token retrieved via the signin endpoint.`)
-	Scope("api:read", "Read-only access")
-	Scope("api:write", "Read and write access")
-})
-
-// Payload(func() {
-//	Token("access_token", String, func() {
-//		Description("JWT used for authentication")
-//		Example("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ")
-//	})
-//})

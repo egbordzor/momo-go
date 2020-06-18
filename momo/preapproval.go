@@ -23,9 +23,8 @@ import (
 // The callback is sent when the request has reach a final state (Successful, Failed).
 // 5. The Provider can use the GET request to validate the status of the pre-approval.
 var PreApproval = Type("PreApproval", func() {
+	Description("PreApproval")
 
-	// TODO
-	// $ref: '#/components/schemas/Party'
 	Attribute("payer", Party)
 	Attribute("payerCurrency", String, func() {
 		Description("ISO4217 Currency")
@@ -33,30 +32,40 @@ var PreApproval = Type("PreApproval", func() {
 	Attribute("payerMessage", String, func() {
 		Description("The message that is shown to the approver.")
 	})
-	Attribute("validityTime", Int, func() {
+	Attribute("validityTime", Int32, func() {
 		Description("The request validity time of the pre-approval")
 	})
 })
 
 var PreApprovalResult = ResultType("PreApprovalResult", func() {
+	Description("Pre-Approval Result")
+	TypeName("PreApprovalResult")
+	ContentType("application/json")
 
-	// TODO
-	// $ref: '#/components/schemas/Party'
-	Attribute("payer", Party)
-	Attribute("payerCurrency", String, func() {
-		Description("ISO4217 Currency")
+	Attributes(func() {
+		Attribute("payer", Party)
+		Attribute("payerCurrency", String, func() {
+			Description("ISO4217 Currency")
+		})
+		Attribute("payerMessage", String, func() {
+			Description("The message that is shown to the approver.")
+		})
+		Attribute("validityTime", Int32, func() {
+			Description("The request validity time of the pre-approval")
+		})
+		Attribute("status", String, func() {
+			Description("Status")
+			Enum("PENDING", "SUCCESSFUL", "FAILED")
+		})
+		Attribute("reason", ErrorReason)
 	})
-	Attribute("payerMessage", String, func() {
-		Description("The message that is shown to the approver.")
+
+	View("default", func() {
+		Attribute("payer")
+		Attribute("payerCurrency")
+		Attribute("payerMessage")
+		Attribute("validityTime")
+		Attribute("status")
+		Attribute("reason")
 	})
-	Attribute("validityTime", Int, func() {
-		Description("The request validity time of the pre-approval")
-	})
-	Attribute("status", String, func() {
-		Enum("PENDING", "SUCCESSFUL", "FAILED")
-	})
-	// TODO
-	// // $ref: '#/components/schemas/ErrorReason'
-	Attribute("reason", ErrorReason)
 })
-

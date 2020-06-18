@@ -8,9 +8,11 @@ import (
 )
 
 var Party = Type("Party", func() {
+	Description("Party identifies a account holder in the wallet platform.")
+
 	Attribute("partyIdType", String, func() {
+		Description("PartyIdType")
 		Enum("MSISDN", "EMAIL", "PARTY_CODE")
-		Example("MSISDN")
 	})
 
 	// Party consists of two parameters, type and partyId.
@@ -18,8 +20,6 @@ var Party = Type("Party", func() {
 	// Validated with IsMSISDN<br> EMAIL - Validated to be a valid e-mail format.
 	// Validated with IsEmail<br> PARTY_CODE - UUID of the party.
 	// Validated with IsUuid
-	Attribute("partyId", Int, func() {
-		Description("Party identifies a account holder in the wallet platform.")
-		Example(4656473839)
+	Attribute("partyId", String, func() {
 	})
 })

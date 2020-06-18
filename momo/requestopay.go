@@ -36,6 +36,7 @@ import (
 // callback URL or if the callback was not received.
 
 var RequestToPay = Type("RequestToPay", func() {
+	Description("RequestToPay")
 
 	Attribute("amount", String, func() {
 		Description("Amount that will be debited from the payer account.")
@@ -46,12 +47,10 @@ var RequestToPay = Type("RequestToPay", func() {
 
 	// External id is used for reconciliation.
 	// The external id will be included in transaction history report.
-	// <br>External id is not required to be unique
+	// External id is not required to be unique
 	Attribute("externalId", String, func() {
 		Description("External id is used as a reference to the transaction.")
 	})
-	// TODO
-	// $ref: '#/components/schemas/Party'
 	Attribute("payer", Party)
 	Attribute("payerMessage", String, func() {
 		Description("Message that will be written in the payer transaction history message field.")
@@ -71,7 +70,7 @@ var RequestToPayResult = ResultType("RequestToPayResult", func() {
 		Example("UGX")
 	})
 
-	// <br> Used to connect to the specific financial transaction made in the account
+	// Used to connect to the specific financial transaction made in the account
 	Attribute("financialTransactionId", Int, func() {
 		Description("Financial transactionIdd from mobile money manager.")
 		Example(23503452)
@@ -80,8 +79,6 @@ var RequestToPayResult = ResultType("RequestToPayResult", func() {
 		Description("External id provided in the creation of the requestToPay transaction.")
 		Example(947354)
 	})
-	// TODO
-	// $ref: '#/components/schemas/Party'
 	Attribute("payer", Party)
 	Attribute("payerMessage", String, func() {
 		Description("Message that will be written in the payer transaction history message field.")
@@ -90,10 +87,8 @@ var RequestToPayResult = ResultType("RequestToPayResult", func() {
 		Description("Message that will be written in the payee transaction history note field.")
 	})
 	Attribute("status", String, func() {
+		Description("Status")
 		Enum("PENDING", "SUCCESSFUL", "FAILED")
-		Example("SUCCESSFUL")
 	})
-	// TODO
-	// $ref: '#/components/schemas/ErrorReason'
 	Attribute("reason", ErrorReason)
 })

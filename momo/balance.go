@@ -17,20 +17,12 @@ var Balance = ResultType("Balance", func() {
 	TypeName("Balance")
 	ContentType("application/json")
 
-	Attribute("availableBalance", String, "The available balance of the account")
-	Attribute("currency", String, "ISO4217 Currency")
-})
-
-var BalanceHeader = Type("BalanceHeader", func() {
-
-	// Format of the header parameter follows the standard for Basic and Bearer.
-	// Oauth uses Bearer authentication type where the credential is the received access token.
-	Attribute("Authorization", String, func() {
-		Description("Authorization header used for Basic authentication and oauth.")
+	Attributes(func() {
+		Attribute("availableBalance", String, "The available balance of the account")
+		Attribute("currency", String, "ISO4217 Currency")
 	})
-
-	// This parameter is used to route the request to the EWP system that will initiate the transaction.
-	Attribute("X-Target-Environment", String, func() {
-		Description("The identifier of the EWP system where the transaction shall be processed.")
+	View("default", func() {
+		Attribute("availableBalance")
+		Attribute("currency")
 	})
 })
