@@ -28,7 +28,7 @@ var _ = API("momo", func() {
 	})
 	Server("momosvr", func() {
 		Description("momosvr hosts MTN's MoMo Collection, Disbursement and Remittance Services.")
-		Services()
+		Services("User", "Remittance", "Disbursement", "Collection")
 		Host("development", func() {
 			Description("Development hosts.")
 			URI("https://sandbox.momodeveloper.mtn.com")

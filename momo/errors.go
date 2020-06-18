@@ -8,30 +8,42 @@ import (
 )
 
 var ErrorReason = ResultType("ErrorReason", func() {
-	Attribute("code", String, func() {
-		Enum(
-			"PAYEE_NOT_FOUND",
-			"PAYER_NOT_FOUND",
-			"NOT_ALLOWED",
-			"NOT_ALLOWED_TARGET_ENVIRONMENT",
-			"INVALID_CALLBACK_URL_HOST",
-			"INVALID_CURRENCY",
-			"SERVICE_UNAVAILABLE",
-			"INTERNAL_PROCESSING_ERROR",
-			"NOT_ENOUGH_FUNDS",
-			"PAYER_LIMIT_REACHED",
-			"PAYEE_NOT_ALLOWED_TO_RECEIVE",
-			"PAYMENT_NOT_APPROVED",
-			"RESOURCE_NOT_FOUND",
-			"APPROVAL_REJECTED",
-			"EXPIRED",
-			"TRANSACTION_CANCELED",
-			"RESOURCE_ALREADY_EXIST",
-		)
-		Example("PAYER_NOT_FOUND")
+	Description("Error Reason")
+	TypeName("ErrorReason")
+	ContentType("application/json")
+
+	Attributes(func() {
+		Attribute("code", String, func() {
+			Description("Code")
+			Enum(
+				"PAYEE_NOT_FOUND",
+				"PAYER_NOT_FOUND",
+				"NOT_ALLOWED",
+				"NOT_ALLOWED_TARGET_ENVIRONMENT",
+				"INVALID_CALLBACK_URL_HOST",
+				"INVALID_CURRENCY",
+				"SERVICE_UNAVAILABLE",
+				"INTERNAL_PROCESSING_ERROR",
+				"NOT_ENOUGH_FUNDS",
+				"PAYER_LIMIT_REACHED",
+				"PAYEE_NOT_ALLOWED_TO_RECEIVE",
+				"PAYMENT_NOT_APPROVED",
+				"RESOURCE_NOT_FOUND",
+				"APPROVAL_REJECTED",
+				"EXPIRED",
+				"TRANSACTION_CANCELED",
+				"RESOURCE_ALREADY_EXIST",
+			)
+			Example("PAYER_NOT_FOUND")
+		})
+		Attribute("message", String, func() {
+			Description("message")
+			Example("Payee does not exist")
+		})
 	})
-	Attribute("message", String, func() {
-		Description("message")
-		Example("Payee does not exist")
+
+	View("default", func() {
+		Attribute("code")
+		Attribute("message")
 	})
 })

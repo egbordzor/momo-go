@@ -61,34 +61,51 @@ var RequestToPay = Type("RequestToPay", func() {
 })
 
 var RequestToPayResult = ResultType("RequestToPayResult", func() {
-	Attribute("amount", Int, func() {
-		Description("Amount that will be debited from the payer account.")
-		Example(100)
-	})
-	Attribute("currency", String, func() {
-		Description("ISO4217 Currency")
-		Example("UGX")
-	})
+	Description("Request To Pay Result")
+	TypeName("RequestToPayResult")
+	ContentType("application/json")
 
-	// Used to connect to the specific financial transaction made in the account
-	Attribute("financialTransactionId", Int, func() {
-		Description("Financial transactionIdd from mobile money manager.")
-		Example(23503452)
+	Attributes(func() {
+		Attribute("amount", String, func() {
+			Description("Amount that will be debited from the payer account.")
+			Example("100")
+		})
+		Attribute("currency", String, func() {
+			Description("ISO4217 Currency")
+			Example("UGX")
+		})
+
+		// Used to connect to the specific financial transaction made in the account
+		Attribute("financialTransactionId", String, func() {
+			Description("Financial transactionIdd from mobile money manager.")
+			Example("23503452")
+		})
+		Attribute("externalId", String, func() {
+			Description("External id provided in the creation of the requestToPay transaction.")
+			Example("947354")
+		})
+		Attribute("payer", Party)
+		Attribute("payerMessage", String, func() {
+			Description("Message that will be written in the payer transaction history message field.")
+		})
+		Attribute("payeeNote", String, func() {
+			Description("Message that will be written in the payee transaction history note field.")
+		})
+		Attribute("status", String, func() {
+			Description("Status")
+			Enum("PENDING", "SUCCESSFUL", "FAILED")
+		})
+		Attribute("reason", ErrorReason)
 	})
-	Attribute("externalId", Int, func() {
-		Description("External id provided in the creation of the requestToPay transaction.")
-		Example(947354)
+	View("default", func() {
+		Attribute("amount")
+		Attribute("currency")
+		Attribute("financialTransactionId")
+		Attribute("externalId")
+		Attribute("payer")
+		Attribute("payerMessage")
+		Attribute("payeeNote")
+		Attribute("status")
+		Attribute("reason")
 	})
-	Attribute("payer", Party)
-	Attribute("payerMessage", String, func() {
-		Description("Message that will be written in the payer transaction history message field.")
-	})
-	Attribute("payeeNote", String, func() {
-		Description("Message that will be written in the payee transaction history note field.")
-	})
-	Attribute("status", String, func() {
-		Description("Status")
-		Enum("PENDING", "SUCCESSFUL", "FAILED")
-	})
-	Attribute("reason", ErrorReason)
 })

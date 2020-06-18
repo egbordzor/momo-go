@@ -8,21 +8,16 @@ import (
 	_ "goa.design/plugins/v3/zaplogger" // Enables ZapLogger Plugin
 )
 
-var _ = Service("collection", func() {
+var _ = Service("Collection", func() {
 
 	HTTP(func() {
 		Path("/collection")
 	})
 
-	// Used to authorize and authenticate other end-points of the API.
-	// a) Provider system requests an access token using the API Key and API user as authentication.
-	// POST/token (Authorization: Basic)
-	// b) Wallet platform authenticates credentials and responds with the access token
-	// Response (Access Token and Validity time)
-	// c) Provider system will use the access token for any request that is sent to Wallet Platform.
-	// e.g. POST /requesttopay (Authentication: Bearer)
-	// Response(HTTP: 202: Accepted)
+	// This operation is used to create an access token which can then be used
+	// to authorize and authenticate towards the other end-points of the API.
 	Method("NewToken", func() {
+
 		Description("Creates an Access Token.")
 		Payload(String)
 		Result(TokenPost200ApplicationJsonResponse)
@@ -36,7 +31,11 @@ var _ = Service("collection", func() {
 		HTTP(func() {
 			POST("/token")
 
-			Response(StatusOK)
+			// Status 200
+			// RFC 7231, 6.3.1
+			Response(StatusOK, func() {
+				Description("OK")
+			})
 
 			// Status 401
 			// RFC 7231, 6.5.1
@@ -50,6 +49,7 @@ var _ = Service("collection", func() {
 
 	// Get the balance of the account.
 	Method("GetBalance", func() {
+
 		Description("Get the balance of the account")
 		Payload(String)
 		Result(Balance)
@@ -63,6 +63,8 @@ var _ = Service("collection", func() {
 		HTTP(func() {
 			GET("/v1_0/account/balance")
 
+			// Status 200
+			// RFC 7231, 6.3.1
 			Response(StatusOK)
 
 			// Status 400
@@ -94,6 +96,7 @@ var _ = Service("collection", func() {
 			Attribute("accountHolderId", String, func() {
 				Description("The party number.")
 			})
+			Required("accountHolderIdType", "accountHolderId")
 		})
 		Result(String)
 
@@ -106,8 +109,8 @@ var _ = Service("collection", func() {
 		HTTP(func() {
 			GET("/v1_0/accountholder/{accountHolderIdType}/{accountHolderId}/active")
 
-			// True if account holder is registered and active,
-			// false if the account holder is not active or not found
+			// Status 200
+			// RFC 7231, 6.3.1
 			Response(StatusOK)
 
 			// Status 400
@@ -158,6 +161,8 @@ var _ = Service("collection", func() {
 		})
 	})
 
+	// This operation is used to get the status of a request to pay.
+	// X-Reference-Id that was passed in the post is used as reference to the request.
 	Method("PaymentStatus", func() {
 		Description("Get the status of a request to pay.")
 		Payload(func() {
@@ -168,6 +173,7 @@ var _ = Service("collection", func() {
 			Attribute("referenceId", String, func() {
 				Description(" UUID of transaction to get result")
 			})
+			Required("referenceId")
 		})
 		Result(RequestToPayResult)
 
@@ -183,9 +189,8 @@ var _ = Service("collection", func() {
 		HTTP(func() {
 			GET("/v1_0/requesttopay/{referenceId}")
 
-			// Note that a  failed request to pay will be returned with this status too.
-			// The 'status' of the RequestToPayResult can be used to determine the outcome of the request.
-			// The 'reason' field can be used to retrieve a cause in case of failure.
+			// Status 200
+			// RFC 7231, 6.3.1
 			Response(StatusOK)
 
 			// Status 400

@@ -8,20 +8,13 @@ import (
 	_ "goa.design/plugins/v3/zaplogger" // Enables ZapLogger Plugin
 )
 
-var _ = Service("disbursement", func() {
+var _ = Service("Disbursement", func() {
 
 	HTTP(func() {
 		Path("/disbursement")
 	})
 
 	// Used to authorize and authenticate other end-points of the API.
-	// a) Provider system requests an access token using the API Key and API user as authentication.
-	// POST/token (Authorization: Basic)
-	// b) Wallet platform authenticates credentials and responds with the access token
-	// Response (Access Token and Validity time)
-	// c) Provider system will use the access token for any request that is sent to Wallet Platform.
-	// e.g. POST /requesttopay (Authentication: Bearer)
-	// Response(HTTP: 202: Accepted)
 	Method("NewToken", func() {
 		Description("Creates an Access Token.")
 		Payload(String)
@@ -36,6 +29,8 @@ var _ = Service("disbursement", func() {
 		HTTP(func() {
 			POST("/token")
 
+			// Status 200
+			// RFC 7231, 6.3.1
 			Response(StatusOK)
 
 			// Status 401
@@ -63,6 +58,8 @@ var _ = Service("disbursement", func() {
 		HTTP(func() {
 			GET("/v1_0/account/balance")
 
+			// Status 200
+			// RFC 7231, 6.3.1
 			Response(StatusOK)
 
 			// Status 400
@@ -106,8 +103,8 @@ var _ = Service("disbursement", func() {
 		HTTP(func() {
 			GET("/v1_0/accountholder/{accountHolderIdType}/{accountHolderId}/active")
 
-			// True if account holder is registered and active,
-			// false if the account holder is not active or not found
+			// Status 200
+			// RFC 7231, 6.3.1
 			Response(StatusOK)
 
 			// Status 400
@@ -120,18 +117,17 @@ var _ = Service("disbursement", func() {
 		})
 	})
 
-	// The payer will be asked to authorize the payment.
-	// The transaction will be executed once the payer has authorized the payment.
-	// The requesttopay will be in status PENDING until the transaction is authorized
-	// or declined by the payer or it is timed out by the system.
-	// Status of the transaction can be validated by using the GET /requesttopay/ <resourceId>
-	Method("PaymentRequest", func() {
-		Description("Request a payment from a consumer (Payer).")
-		Payload(RequestToPay)
+	// Transfer operation is used to transfer an amount from
+	// the owner’s account to a payee account.
+	// Status of the transaction can be validated by using the
+	// GET /transfer/\{referenceId\}
+	Method("Transfer", func() {
+		Description("transfer an amount from the owner’s account to a payee account.")
+		Payload(Transfer)
 		Result(String)
 
 		// 400
-		Error("bad_request", ErrorReason, "Bad request, e.g. invalid data was sent in the request.")
+		Error("bad_request", ErrorResult, "Bad request, e.g. invalid data was sent in the request.")
 
 		// 409
 		Error("conflict", ErrorReason, "Conflict, duplicated reference id")
@@ -140,7 +136,7 @@ var _ = Service("disbursement", func() {
 		Error("internal_error", ErrorReason, "Internal error.")
 
 		HTTP(func() {
-			POST("/v1_0/requesttopay")
+			POST("/v1_0/transfer")
 
 			Response(StatusAccepted)
 
@@ -158,8 +154,11 @@ var _ = Service("disbursement", func() {
 		})
 	})
 
-	Method("PaymentStatus", func() {
-		Description("Get the status of a request to pay.")
+	// This operation is used to get the status of a transfer.
+	// X-Reference-Id that was passed in the post is used as
+	// reference to the request.
+	Method("TransferStatus", func() {
+		Description("Get the status of a transfer.")
 		Payload(func() {
 
 			// Reference id  used when creating the request to pay.
@@ -168,8 +167,9 @@ var _ = Service("disbursement", func() {
 			Attribute("referenceId", String, func() {
 				Description(" UUID of transaction to get result")
 			})
+			Required("referenceId")
 		})
-		Result(RequestToPayResult)
+		Result(TransferResult)
 
 		// 400
 		Error("bad_request", ErrorResult, "Bad request, e.g. an incorrectly formatted reference id was provided.")
@@ -181,11 +181,10 @@ var _ = Service("disbursement", func() {
 		Error("internal_error", ErrorReason, "Internal error.")
 
 		HTTP(func() {
-			GET("/v1_0/requesttopay/{referenceId}")
+			GET("/v1_0/transfer/{referenceId}")
 
-			// Note that a  failed request to pay will be returned with this status too.
-			// The 'status' of the RequestToPayResult can be used to determine the outcome of the request.
-			// The 'reason' field can be used to retrieve a cause in case of failure.
+			// Status 200
+			// RFC 7231, 6.3.1
 			Response(StatusOK)
 
 			// Status 400

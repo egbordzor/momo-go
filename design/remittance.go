@@ -8,7 +8,7 @@ import (
 	_ "goa.design/plugins/v3/zaplogger" // Enables ZapLogger Plugin
 )
 
-var _ = Service("remittance", func() {
+var _ = Service("Remittance", func() {
 
 	HTTP(func() {
 		Path("/remittance")
@@ -36,6 +36,8 @@ var _ = Service("remittance", func() {
 		HTTP(func() {
 			POST("/token")
 
+			// Status 200
+			// RFC 7231, 6.3.1
 			Response(StatusOK)
 
 			// Status 401
@@ -63,7 +65,11 @@ var _ = Service("remittance", func() {
 		HTTP(func() {
 			GET("/v1_0/account/balance")
 
-			Response(StatusOK)
+			// Status 200
+			// RFC 7231, 6.3.1
+			Response(StatusOK, func() {
+				Description("Ok")
+			})
 
 			// Status 400
 			// RFC 7231, 6.5.1
@@ -75,7 +81,8 @@ var _ = Service("remittance", func() {
 		})
 	})
 
-	// Operation is used  to check if an account holder is registered and active in the system.
+	// Operation is used  to check if an account holder is registered
+	// and active in the system.
 	Method("RetrieveAccountHolder", func() {
 		Description("Checks if an account holder is registered and active in the system")
 		Payload(func() {
@@ -94,6 +101,7 @@ var _ = Service("remittance", func() {
 			Attribute("accountHolderId", String, func() {
 				Description("The party number.")
 			})
+			Required("accountHolderIdType", "accountHolderId" )
 		})
 		Result(String)
 
@@ -106,9 +114,11 @@ var _ = Service("remittance", func() {
 		HTTP(func() {
 			GET("/v1_0/accountholder/{accountHolderIdType}/{accountHolderId}/active")
 
-			// True if account holder is registered and active,
-			// false if the account holder is not active or not found
-			Response(StatusOK)
+			// Status 200
+			// RFC 7231, 6.3.1
+			Response(StatusOK, func() {
+				Description("Ok. True if account holder is registered and active, false if the account holder is not active or not found found")
+			})
 
 			// Status 400
 			// RFC 7231, 6.5.1
@@ -120,27 +130,25 @@ var _ = Service("remittance", func() {
 		})
 	})
 
-	// The payer will be asked to authorize the payment.
-	// The transaction will be executed once the payer has authorized the payment.
-	// The requesttopay will be in status PENDING until the transaction is authorized
-	// or declined by the payer or it is timed out by the system.
-	// Status of the transaction can be validated by using the GET /requesttopay/ <resourceId>
-	Method("PaymentRequest", func() {
+	// Transfer operation is used to transfer an amount from the own
+	// account to a payee account.<br> Status of the transaction can
+	// validated by using the GET /transfer/\{referenceId\}
+	Method("Transfer", func() {
 		Description("Request a payment from a consumer (Payer).")
-		Payload(RequestToPay)
+		Payload(Transfer)
 		Result(String)
 
 		// 400
-		Error("bad_request", ErrorReason, "Bad request, e.g. invalid data was sent in the request.")
+		Error("bad_request", ErrorResult, "Bad request, e.g. invalid data was sent in the request.")
 
 		// 409
 		Error("conflict", ErrorReason, "Conflict, duplicated reference id")
 
 		// 500
-		Error("internal_error", ErrorReason, "Internal error.")
+		Error("internal_error", ErrorReason, "Internal Error.")
 
 		HTTP(func() {
-			POST("/v1_0/requesttopay")
+			POST("/v1_0/transfer")
 
 			Response(StatusAccepted)
 
@@ -158,7 +166,9 @@ var _ = Service("remittance", func() {
 		})
 	})
 
-	Method("PaymentStatus", func() {
+	// This operation is used to get the status of a transfer.
+	// X-Reference-Id that was passed in the post is used as reference to the request.
+	Method("TransferStatus", func() {
 		Description("Get the status of a request to pay.")
 		Payload(func() {
 
@@ -168,8 +178,9 @@ var _ = Service("remittance", func() {
 			Attribute("referenceId", String, func() {
 				Description(" UUID of transaction to get result")
 			})
+			Required("referenceId")
 		})
-		Result(RequestToPayResult)
+		Result(TransferResult)
 
 		// 400
 		Error("bad_request", ErrorResult, "Bad request, e.g. an incorrectly formatted reference id was provided.")
@@ -178,14 +189,13 @@ var _ = Service("remittance", func() {
 		Error("not_found", ErrorReason, "Resource not found.")
 
 		// 500
-		Error("internal_error", ErrorReason, "Internal error.")
+		Error("internal_error", ErrorReason, "Internal Error. Note that if the retreieved transfer has failed, it will not cause this status to be returned. This status is only returned if the GET request itself fails.")
 
 		HTTP(func() {
-			GET("/v1_0/requesttopay/{referenceId}")
+			GET("/v1_0/transfer/{referenceId}")
 
-			// Note that a  failed request to pay will be returned with this status too.
-			// The 'status' of the RequestToPayResult can be used to determine the outcome of the request.
-			// The 'reason' field can be used to retrieve a cause in case of failure.
+			// Status 200
+			// RFC 7231, 6.3.1
 			Response(StatusOK)
 
 			// Status 400

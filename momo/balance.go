@@ -21,6 +21,7 @@ var Balance = ResultType("Balance", func() {
 		Attribute("availableBalance", String, "The available balance of the account")
 		Attribute("currency", String, "ISO4217 Currency")
 	})
+
 	View("default", func() {
 		Attribute("availableBalance")
 		Attribute("currency")

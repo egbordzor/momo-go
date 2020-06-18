@@ -9,7 +9,7 @@ import (
 )
 
 // Partner Gateway sandbox provisioning API document
-var _ = Service("user", func() {
+var _ = Service("User", func() {
 
 	HTTP(func() {
 		Path("/")
@@ -61,8 +61,16 @@ var _ = Service("user", func() {
 	// d) Provider now has both API User and API Key created.
 	Method("NewKey", func() {
 		Description("Used to create an API key for an API user in the sandbox target environment.")
-		Payload(ApiUserKeyResult)
-		Result(String)
+		Payload(func() {
+
+			// Resource ID for the API user to be created.
+			// UUID version 4 is required
+			Attribute("X-Reference-Id", String, func() {
+				Description("Format - UUID.")
+			})
+			Required("X-Reference-Id")
+		})
+		Result(ApiUserKeyResult)
 
 		// 400
 		Error("bad_request", ErrorResult, "Bad request, e.g. invalid data was sent in the request.")
@@ -94,7 +102,15 @@ var _ = Service("user", func() {
 
 	Method("GetUser", func() {
 		Description("Used to get API user information.")
-		Payload(String)
+		Payload(func() {
+
+			// Resource ID for the API user to be created.
+			// UUID version 4 is required
+			Attribute("X-Reference-Id", String, func() {
+				Description("Format - UUID.")
+			})
+			Required("X-Reference-Id")
+		})
 		Result(String)
 
 		// 400
