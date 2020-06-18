@@ -23,7 +23,7 @@ var _ = Service("user", func() {
 	// b) The Provider specifies the UUID Reference ID in the request Header and the subscription Key.
 	// c) Reference ID will be used as the User ID for the API user to be created.
 	// d) Wallet Platform creates the User and responds with 201
-	Method("createuser", func() {
+	Method("createUser", func() {
 		Description("Used to create an API user in the sandbox target environment")
 		Payload(ApiUser)
 		Payload(func() {
@@ -70,7 +70,7 @@ var _ = Service("user", func() {
 	// c) Wallet Platform creates the API Key and responds with 201 Created with the newly
 	// Created API Key in the Body.
 	// d) Provider now has both API User and API Key created.
-	Method("createkey", func() {
+	Method("createKey", func() {
 		Description("Used to create an API key for an API user in the sandbox target environment.")
 		Payload(ApiUserKeyResult)
 		Payload(func() {
@@ -105,7 +105,7 @@ var _ = Service("user", func() {
 		})
 	})
 
-	Method("list", func() {
+	Method("showUser", func() {
 		Description("Used to get API user information.")
 		Payload(func() {
 
@@ -145,7 +145,7 @@ var _ = Service("user", func() {
 	// c) Wallet Platform responds with 200 Ok and details of the user.
 	// d) TargetEnvironment is preconfigured to sandbox in the Sandbox environment,
 	// therefore Providers will not have the option of setting it to a different parameter.
-	Method("show", func() {
+	Method("showUserDetails", func() {
 		Description("GET API User Details")
 		Payload(func() {
 			Attribute("APIUser", String, func() {
@@ -174,30 +174,4 @@ var _ = Service("user", func() {
 			Response("internal_error", StatusInternalServerError)
 		})
 	})
-})
-
-var ApiUser = Type("ApiUser", func() {
-	Description("The create API user information")
-	Attribute("providerCallbackHost", String, func() {
-		Description("The provider callback host")
-	})
-})
-
-var ApiUserResult = Type("ApiUserResult", func() {
-	Description("The API user information")
-	Attribute("providerCallbackHost", String, "The provider callback host")
-	Attribute("paymentServerUrl", PaymentServerUrl)
-	Attribute("targetEnvironment", TargetEnvironment)
-})
-
-var ApiUserKeyResult = Type("ApiUserKeyResult", func() {
-	Attribute("apiKey", String, "The created API user key")
-})
-
-var PaymentServerUrl = Type("PaymentServerUrl", func() {
-	Attribute("apiKey", String, "The payment server URL")
-})
-
-var TargetEnvironment = Type("TargetEnvironment", func() {
-	Attribute("apiKey", String, "The target environment")
 })
