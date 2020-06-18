@@ -130,9 +130,13 @@ var _ = Service("Disbursement", func() {
 		Error("bad_request", ErrorResult, "Bad request, e.g. invalid data was sent in the request.")
 
 		// 409
-		Error("conflict", ErrorReason, "Conflict, duplicated reference id")
+		// TODO
+		// Error("conflict", ErrorReason, "Conflict, duplicated reference id")
+		Error("conflict", ErrorResult, "Conflict, duplicated reference id")
 
 		// 500
+		// TODO
+		// Error("internal_error", ErrorReason, "Internal error.")
 		Error("internal_error", ErrorReason, "Internal error.")
 
 		HTTP(func() {
@@ -175,10 +179,14 @@ var _ = Service("Disbursement", func() {
 		Error("bad_request", ErrorResult, "Bad request, e.g. an incorrectly formatted reference id was provided.")
 
 		// 404
-		Error("not_found", ErrorReason, "Resource not found.")
+		// TODO
+		// Error("not_found", ErrorReason, "Resource not found.")
+		Error("not_found", ErrorResult, "Resource not found.")
 
 		// 500
-		Error("internal_error", ErrorReason, "Internal error.")
+		// TODO
+		// Error("internal_error", ErrorReason, "Internal error.")
+		Error("internal_error", ErrorResult, "Internal error.")
 
 		HTTP(func() {
 			GET("/v1_0/transfer/{referenceId}")

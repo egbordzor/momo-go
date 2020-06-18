@@ -88,7 +88,7 @@ var TransferResult = ResultType("TransferResult", func() {
 		Attribute("externalId")
 		Attribute("payee")
 		Attribute("payeeNote")
-		Attribute("Status")
+		Attribute("status")
 		Attribute("reason")
 	})
 })

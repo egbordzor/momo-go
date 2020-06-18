@@ -15,9 +15,9 @@ var ApiUser = Type("ApiUser", func() {
 	})
 })
 
-var ApiUserResult = Type("ApiUserResult", func() {
+var ApiUserResult = ResultType("ApiUserResult", func() {
 	Description("The API user information")
-	TypeName("Balance")
+	TypeName("ApiUserResult")
 	ContentType("application/json")
 
 	Attributes(func() {

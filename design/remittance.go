@@ -101,7 +101,7 @@ var _ = Service("Remittance", func() {
 			Attribute("accountHolderId", String, func() {
 				Description("The party number.")
 			})
-			Required("accountHolderIdType", "accountHolderId" )
+			Required("accountHolderIdType", "accountHolderId")
 		})
 		Result(String)
 
@@ -142,10 +142,14 @@ var _ = Service("Remittance", func() {
 		Error("bad_request", ErrorResult, "Bad request, e.g. invalid data was sent in the request.")
 
 		// 409
-		Error("conflict", ErrorReason, "Conflict, duplicated reference id")
+		// TODO
+		// Error("conflict", ErrorReason, "Conflict, duplicated reference id")
+		Error("conflict", ErrorResult, "Conflict, duplicated reference id")
 
 		// 500
-		Error("internal_error", ErrorReason, "Internal Error.")
+		// TODO
+		// Error("internal_error", ErrorReason, "Internal Error.")
+		Error("internal_error", ErrorResult, "Internal Error.")
 
 		HTTP(func() {
 			POST("/v1_0/transfer")
@@ -186,11 +190,14 @@ var _ = Service("Remittance", func() {
 		Error("bad_request", ErrorResult, "Bad request, e.g. an incorrectly formatted reference id was provided.")
 
 		// 404
-		Error("not_found", ErrorReason, "Resource not found.")
+		// TODO
+		// Error("not_found", ErrorReason, "Resource not found.")
+		Error("not_found", ErrorResult, "Resource not found.")
 
 		// 500
-		Error("internal_error", ErrorReason, "Internal Error. Note that if the retreieved transfer has failed, it will not cause this status to be returned. This status is only returned if the GET request itself fails.")
-
+		// TODO
+		// Error("internal_error", ErrorReason, "Internal Error. Note that if the retreieved transfer has failed, it will not cause this status to be returned. This status is only returned if the GET request itself fails.")
+		Error("internal_error", ErrorResult, "Internal Error. Note that if the retreieved transfer has failed, it will not cause this status to be returned. This status is only returned if the GET request itself fails.")
 		HTTP(func() {
 			GET("/v1_0/transfer/{referenceId}")
 
