@@ -7,7 +7,7 @@ import (
 	_ "goa.design/plugins/v3/zaplogger" // Enables ZapLogger Plugin
 )
 
-var _ = Service("Collection", func() {
+var _ = Service("collection", func() {
 
 	HTTP(func() {
 		Path("/collection")

@@ -3,9 +3,9 @@ module github.com/wondenge/momo-go
 go 1.14
 
 require (
-	github.com/go-kit/kit v0.8.0
+	github.com/go-kit/kit v0.10.0
 	github.com/google/go-cmp v0.4.0 // indirect
-	go.uber.org/zap v1.10.0
+	go.uber.org/zap v1.13.0
 	goa.design/goa/v3 v3.1.3
 	goa.design/plugins/v3 v3.1.2
 	golang.org/x/mod v0.3.0 // indirect

@@ -26,9 +26,9 @@ var _ = API("momo", func() {
 		Description("Library Usage")
 		URL("https://github.com/wondenge/momo-go/blob/master/README.md")
 	})
-	Server("momosvr", func() {
+	Server("momo", func() {
 		Description("momosvr hosts MTN's MoMo Collection, Disbursement and Remittance Services.")
-		Services("User", "Remittance", "Disbursement", "Collection")
+		Services("user", "remittance", "disbursement", "collection")
 		Host("development", func() {
 			Description("Development hosts.")
 			URI("https://sandbox.momodeveloper.mtn.com")

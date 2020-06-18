@@ -24,10 +24,10 @@ paths:
   /apiuser/{APIUser}:
     get:
       tags:
-      - User
-      summary: GetUserDetails User
+      - user
+      summary: GetUserDetails user
       description: GET API User Details
-      operationId: User#GetUserDetails
+      operationId: user#GetUserDetails
       produces:
       - application/json
       parameters:
@@ -53,10 +53,10 @@ paths:
   /collection/token:
     post:
       tags:
-      - Collection
-      summary: NewToken Collection
+      - collection
+      summary: NewToken collection
       description: Creates an Access Token.
-      operationId: Collection#NewToken
+      operationId: collection#NewToken
       produces:
       - application/json
       parameters:
@@ -83,10 +83,10 @@ paths:
   /collection/v1_0/account/balance:
     get:
       tags:
-      - Collection
-      summary: GetBalance Collection
+      - collection
+      summary: GetBalance collection
       description: Get the balance of the account
-      operationId: Collection#GetBalance
+      operationId: collection#GetBalance
       produces:
       - application/json
       parameters:
@@ -113,10 +113,10 @@ paths:
   /collection/v1_0/accountholder/{accountHolderIdType}/{accountHolderId}/active:
     get:
       tags:
-      - Collection
-      summary: RetrieveAccountHolder Collection
+      - collection
+      summary: RetrieveAccountHolder collection
       description: Checks if an account holder is registered and active in the system
-      operationId: Collection#RetrieveAccountHolder
+      operationId: collection#RetrieveAccountHolder
       parameters:
       - name: accountHolderIdType
         in: path
@@ -146,10 +146,10 @@ paths:
   /collection/v1_0/requesttopay:
     post:
       tags:
-      - Collection
-      summary: PaymentRequest Collection
+      - collection
+      summary: PaymentRequest collection
       description: Request a payment from a consumer (Payer).
-      operationId: Collection#PaymentRequest
+      operationId: collection#PaymentRequest
       parameters:
       - name: PaymentRequestRequestBody
         in: body
@@ -178,10 +178,10 @@ paths:
   /collection/v1_0/requesttopay/{referenceId}:
     get:
       tags:
-      - Collection
-      summary: PaymentStatus Collection
+      - collection
+      summary: PaymentStatus collection
       description: Get the status of a request to pay.
-      operationId: Collection#PaymentStatus
+      operationId: collection#PaymentStatus
       produces:
       - application/json
       parameters:
@@ -212,10 +212,10 @@ paths:
   /disbursement/token:
     post:
       tags:
-      - Disbursement
-      summary: NewToken Disbursement
+      - disbursement
+      summary: NewToken disbursement
       description: Creates an Access Token.
-      operationId: Disbursement#NewToken
+      operationId: disbursement#NewToken
       produces:
       - application/json
       parameters:
@@ -242,10 +242,10 @@ paths:
   /disbursement/v1_0/account/balance:
     get:
       tags:
-      - Disbursement
-      summary: GetBalance Disbursement
+      - disbursement
+      summary: GetBalance disbursement
       description: Get the balance of the account
-      operationId: Disbursement#GetBalance
+      operationId: disbursement#GetBalance
       produces:
       - application/json
       parameters:
@@ -272,10 +272,10 @@ paths:
   /disbursement/v1_0/accountholder/{accountHolderIdType}/{accountHolderId}/active:
     get:
       tags:
-      - Disbursement
-      summary: RetrieveAccountHolder Disbursement
+      - disbursement
+      summary: RetrieveAccountHolder disbursement
       description: Checks if an account holder is registered and active in the system
-      operationId: Disbursement#RetrieveAccountHolder
+      operationId: disbursement#RetrieveAccountHolder
       parameters:
       - name: accountHolderIdType
         in: path
@@ -305,10 +305,10 @@ paths:
   /disbursement/v1_0/transfer:
     post:
       tags:
-      - Disbursement
-      summary: Transfer Disbursement
+      - disbursement
+      summary: Transfer disbursement
       description: transfer an amount from the owner’s account to a payee account.
-      operationId: Disbursement#Transfer
+      operationId: disbursement#Transfer
       parameters:
       - name: TransferRequestBody
         in: body
@@ -337,10 +337,10 @@ paths:
   /disbursement/v1_0/transfer/{referenceId}:
     get:
       tags:
-      - Disbursement
-      summary: TransferStatus Disbursement
+      - disbursement
+      summary: TransferStatus disbursement
       description: Get the status of a transfer.
-      operationId: Disbursement#TransferStatus
+      operationId: disbursement#TransferStatus
       produces:
       - application/json
       parameters:
@@ -371,10 +371,10 @@ paths:
   /remittance/token:
     post:
       tags:
-      - Remittance
-      summary: NewToken Remittance
+      - remittance
+      summary: NewToken remittance
       description: Creates an Access Token.
-      operationId: Remittance#NewToken
+      operationId: remittance#NewToken
       produces:
       - application/json
       parameters:
@@ -401,10 +401,10 @@ paths:
   /remittance/v1_0/account/balance:
     get:
       tags:
-      - Remittance
-      summary: GetBalance Remittance
+      - remittance
+      summary: GetBalance remittance
       description: Get the balance of the account
-      operationId: Remittance#GetBalance
+      operationId: remittance#GetBalance
       produces:
       - application/json
       parameters:
@@ -431,10 +431,10 @@ paths:
   /remittance/v1_0/accountholder/{accountHolderIdType}/{accountHolderId}/active:
     get:
       tags:
-      - Remittance
-      summary: RetrieveAccountHolder Remittance
+      - remittance
+      summary: RetrieveAccountHolder remittance
       description: Checks if an account holder is registered and active in the system
-      operationId: Remittance#RetrieveAccountHolder
+      operationId: remittance#RetrieveAccountHolder
       parameters:
       - name: accountHolderIdType
         in: path
@@ -464,10 +464,10 @@ paths:
   /remittance/v1_0/transfer:
     post:
       tags:
-      - Remittance
-      summary: Transfer Remittance
+      - remittance
+      summary: Transfer remittance
       description: Request a payment from a consumer (Payer).
-      operationId: Remittance#Transfer
+      operationId: remittance#Transfer
       parameters:
       - name: TransferRequestBody
         in: body
@@ -496,10 +496,10 @@ paths:
   /remittance/v1_0/transfer/{referenceId}:
     get:
       tags:
-      - Remittance
-      summary: TransferStatus Remittance
+      - remittance
+      summary: TransferStatus remittance
       description: Get the status of a request to pay.
-      operationId: Remittance#TransferStatus
+      operationId: remittance#TransferStatus
       produces:
       - application/json
       parameters:
@@ -530,10 +530,10 @@ paths:
   /v1_0/apiuser:
     post:
       tags:
-      - User
-      summary: NewUser User
+      - user
+      summary: NewUser user
       description: Used to create an API user in the sandbox target environment.
-      operationId: User#NewUser
+      operationId: user#NewUser
       parameters:
       - name: NewUserRequestBody
         in: body
@@ -562,10 +562,10 @@ paths:
   /v1_0/apiuser/{X-Reference-Id}:
     get:
       tags:
-      - User
-      summary: GetUser User
+      - user
+      summary: GetUser user
       description: Used to get API user information.
-      operationId: User#GetUser
+      operationId: user#GetUser
       parameters:
       - name: GetUserRequestBody
         in: body
@@ -596,10 +596,10 @@ paths:
   /v1_0/apiuser/{X-Reference-Id}/apikey:
     post:
       tags:
-      - User
-      summary: NewKey User
+      - user
+      summary: NewKey user
       description: Used to create an API key for an API user in the sandbox target environment.
-      operationId: User#NewKey
+      operationId: user#NewKey
       parameters:
       - name: NewKeyRequestBody
         in: body
@@ -1591,39 +1591,48 @@ definitions:
     - timeout
     - fault
   DisbursementTransferInternalErrorResponseBody:
-    title: 'Mediatype identifier: errorreason; view=default'
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
     type: object
     properties:
-      code:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: true
+      id:
         type: string
-        description: Code
-        example: PAYER_NOT_FOUND
-        enum:
-        - PAYEE_NOT_FOUND
-        - PAYER_NOT_FOUND
-        - NOT_ALLOWED
-        - NOT_ALLOWED_TARGET_ENVIRONMENT
-        - INVALID_CALLBACK_URL_HOST
-        - INVALID_CURRENCY
-        - SERVICE_UNAVAILABLE
-        - INTERNAL_PROCESSING_ERROR
-        - NOT_ENOUGH_FUNDS
-        - PAYER_LIMIT_REACHED
-        - PAYEE_NOT_ALLOWED_TO_RECEIVE
-        - PAYMENT_NOT_APPROVED
-        - RESOURCE_NOT_FOUND
-        - APPROVAL_REJECTED
-        - EXPIRED
-        - TRANSACTION_CANCELED
-        - RESOURCE_ALREADY_EXIST
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
       message:
         type: string
-        description: message
-        example: Payee does not exist
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: false
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: true
     description: Internal error. (default view)
     example:
-      code: PAYER_NOT_FOUND
-      message: Payee does not exist
+      fault: false
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: false
+      timeout: true
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
   DisbursementTransferRequestBody:
     title: DisbursementTransferRequestBody
     type: object
@@ -1631,34 +1640,34 @@ definitions:
       amount:
         type: string
         description: Amount that will be debited from the payer account.
-        example: Suscipit ipsa sint deserunt.
+        example: Corrupti molestiae in et optio est et.
       currency:
         type: string
         description: ISO4217 Currency
-        example: Distinctio corrupti molestiae in et optio.
+        example: Mollitia tempore fugiat.
       externalId:
         type: string
         description: External id is used as a reference to the transaction.
-        example: Et harum.
+        example: Ut voluptatem doloribus natus aut et possimus.
       payee:
         $ref: '#/definitions/PartyRequestBody'
       payeeNote:
         type: string
         description: Message that will be written in the payee transaction history note field.
-        example: Aut et possimus.
+        example: Voluptatem perferendis assumenda qui natus nesciunt dolorum.
       payerMessage:
         type: string
         description: Message that will be written in the payer transaction history message field.
-        example: Tempore fugiat eum ut voluptatem doloribus.
+        example: Tempore consequatur.
     example:
-      amount: Tempore consequatur.
-      currency: Voluptatem perferendis assumenda qui natus nesciunt dolorum.
-      externalId: Est tempore qui molestiae molestiae sequi.
+      amount: Est tempore qui molestiae molestiae sequi.
+      currency: Eos aspernatur reiciendis dignissimos commodi officiis vero.
+      externalId: Est facilis sunt.
       payee:
         partyId: Corporis perspiciatis provident quis adipisci harum.
         partyIdType: EMAIL
-      payeeNote: Est facilis sunt.
-      payerMessage: Eos aspernatur reiciendis dignissimos commodi officiis vero.
+      payeeNote: Vero sequi est.
+      payerMessage: Sit quo velit nesciunt nihil et quasi.
   DisbursementTransferStatusBadRequestResponseBody:
     title: 'Mediatype identifier: application/vnd.goa.error; view=default'
     type: object
@@ -1682,18 +1691,18 @@ definitions:
       temporary:
         type: boolean
         description: Is the error temporary?
-        example: false
+        example: true
       timeout:
         type: boolean
         description: Is the error a timeout?
         example: true
     description: Bad request, e.g. an incorrectly formatted reference id was provided. (default view)
     example:
-      fault: false
+      fault: true
       id: 123abc
       message: parameter 'p' must be an integer
       name: bad_request
-      temporary: true
+      temporary: false
       timeout: false
     required:
     - name
@@ -1729,15 +1738,15 @@ definitions:
       timeout:
         type: boolean
         description: Is the error a timeout?
-        example: false
+        example: true
     description: Internal error. (default view)
     example:
-      fault: false
+      fault: true
       id: 123abc
       message: parameter 'p' must be an integer
       name: bad_request
-      temporary: true
-      timeout: true
+      temporary: false
+      timeout: false
     required:
     - name
     - id
@@ -1752,7 +1761,7 @@ definitions:
       fault:
         type: boolean
         description: Is the error a server-side fault?
-        example: true
+        example: false
       id:
         type: string
         description: ID is a unique identifier for this particular occurrence of the problem.
@@ -1775,7 +1784,7 @@ definitions:
         example: true
     description: Resource not found. (default view)
     example:
-      fault: false
+      fault: true
       id: 123abc
       message: parameter 'p' must be an integer
       name: bad_request
@@ -1795,49 +1804,49 @@ definitions:
       amount:
         type: string
         description: ' Amount that will be debited from the payer account.'
-        example: Sit quo velit nesciunt nihil et quasi.
+        example: Vel et delectus et quisquam.
       currency:
         type: string
         description: ISO4217 Currency
-        example: Vero sequi est.
+        example: Aperiam sit velit.
       externalId:
         type: string
         description: External id is used as a reference to the transaction
-        example: Aperiam sit velit.
+        example: Doloremque aut voluptatum.
       financialTransactionId:
         type: string
         description: Financial transactionIdd from mobile money manager
-        example: Vel et delectus et quisquam.
+        example: Provident quia adipisci maxime ut.
       payee:
         $ref: '#/definitions/PartyResponseBody'
       payeeNote:
         type: string
         description: Message that will be written in the payee transaction history note field.
-        example: Provident quia adipisci maxime ut.
+        example: Tempora magni laudantium est.
       reason:
         $ref: '#/definitions/ErrorReasonResponseBody'
       status:
         type: string
         description: Status
-        example: FAILED
+        example: PENDING
         enum:
         - PENDING
         - SUCCESSFUL
         - FAILED
     description: TransferStatusResponseBody result type (default view)
     example:
-      amount: Aut voluptatum labore.
-      currency: Magni laudantium est voluptatibus voluptatibus esse consequatur.
-      externalId: Enim quam.
-      financialTransactionId: Quas eos cum voluptatum.
+      amount: Esse consequatur maxime.
+      currency: Eos cum voluptatum qui enim quam debitis.
+      externalId: Minus aut voluptatem enim fugiat modi.
+      financialTransactionId: Aut dolor quos eum ut neque.
       payee:
         partyId: In maxime fuga quo consequatur dolores.
         partyIdType: MSISDN
-      payeeNote: Est aut dolor quos.
+      payeeNote: Sit beatae maiores modi.
       reason:
         code: PAYER_NOT_FOUND
         message: Payee does not exist
-      status: PENDING
+      status: FAILED
   ErrorReasonResponseBody:
     title: 'Mediatype identifier: errorreason; view=default'
     type: object
@@ -1917,9 +1926,9 @@ definitions:
       apiKey:
         type: string
         description: The payment server URL
-        example: Dolor ipsam.
+        example: Rerum assumenda dolor.
     example:
-      apiKey: Omnis dignissimos ut illo blanditiis veritatis.
+      apiKey: Dolorem quo deleniti velit ratione esse doloribus.
   RemittanceGetBalanceBadRequestResponseBody:
     title: 'Mediatype identifier: application/vnd.goa.error; view=default'
     type: object
@@ -1927,7 +1936,7 @@ definitions:
       fault:
         type: boolean
         description: Is the error a server-side fault?
-        example: false
+        example: true
       id:
         type: string
         description: ID is a unique identifier for this particular occurrence of the problem.
@@ -1955,7 +1964,7 @@ definitions:
       message: parameter 'p' must be an integer
       name: bad_request
       temporary: true
-      timeout: true
+      timeout: false
     required:
     - name
     - id
@@ -1990,10 +1999,10 @@ definitions:
       timeout:
         type: boolean
         description: Is the error a timeout?
-        example: false
+        example: true
     description: Internal error. The returned response contains details. (default view)
     example:
-      fault: false
+      fault: true
       id: 123abc
       message: parameter 'p' must be an integer
       name: bad_request
@@ -2013,15 +2022,15 @@ definitions:
       availableBalance:
         type: string
         description: The available balance of the account
-        example: Dolor non adipisci quo.
+        example: Ea natus cupiditate possimus non et et.
       currency:
         type: string
         description: ISO4217 Currency
-        example: Error temporibus explicabo.
+        example: Vitae et provident tenetur consequatur qui.
     description: GetBalanceResponseBody result type (default view)
     example:
-      availableBalance: Iusto est.
-      currency: Laborum voluptatem et ea natus cupiditate possimus.
+      availableBalance: Consectetur neque molestiae.
+      currency: Itaque aliquam nihil a et.
   RemittanceNewTokenInternalErrorResponseBody:
     title: 'Mediatype identifier: application/vnd.goa.error; view=default'
     type: object
@@ -2029,7 +2038,7 @@ definitions:
       fault:
         type: boolean
         description: Is the error a server-side fault?
-        example: false
+        example: true
       id:
         type: string
         description: ID is a unique identifier for this particular occurrence of the problem.
@@ -2049,15 +2058,15 @@ definitions:
       timeout:
         type: boolean
         description: Is the error a timeout?
-        example: false
+        example: true
     description: Error (default view)
     example:
       fault: false
       id: 123abc
       message: parameter 'p' must be an integer
       name: bad_request
-      temporary: true
-      timeout: true
+      temporary: false
+      timeout: false
     required:
     - name
     - id
@@ -2072,21 +2081,21 @@ definitions:
       access_token:
         type: string
         description: A JWT token which can be used to authorize against the other API end-points.
-        example: Corrupti quia distinctio dolor omnis tempore.
+        example: Et nostrum vel quas.
       expires_in:
         type: integer
         description: The validity time in seconds of the token.
-        example: 468600620
+        example: 1918312867
         format: int32
       token_type:
         type: string
         description: The token type.
-        example: Enim laudantium aperiam veritatis nobis et et.
+        example: Ea neque.
     description: NewTokenResponseBody result type (default view)
     example:
-      access_token: Nostrum vel quas nulla ea neque quod.
-      expires_in: 398194354
-      token_type: Excepturi voluptate.
+      access_token: Excepturi voluptate.
+      expires_in: 1522644178
+      token_type: Veritatis libero eveniet reiciendis magnam tempora.
   RemittanceNewTokenUnauthorizedResponseBody:
     title: 'Mediatype identifier: tokenpost401applicationjsonresponse; view=default'
     type: object
@@ -2094,10 +2103,10 @@ definitions:
       error:
         type: string
         description: An error code.
-        example: Libero eveniet.
+        example: Reprehenderit maxime optio provident optio.
     description: Unauthorized (default view)
     example:
-      error: Magnam tempora.
+      error: Non adipisci quo dolorem error temporibus explicabo.
   RemittanceRetrieveAccountHolderBadRequestResponseBody:
     title: 'Mediatype identifier: application/vnd.goa.error; view=default'
     type: object
@@ -2105,7 +2114,7 @@ definitions:
       fault:
         type: boolean
         description: Is the error a server-side fault?
-        example: false
+        example: true
       id:
         type: string
         description: ID is a unique identifier for this particular occurrence of the problem.
@@ -2121,19 +2130,19 @@ definitions:
       temporary:
         type: boolean
         description: Is the error temporary?
-        example: false
+        example: true
       timeout:
         type: boolean
         description: Is the error a timeout?
         example: true
     description: Bad request, e.g. invalid data was sent in the request. (default view)
     example:
-      fault: false
+      fault: true
       id: 123abc
       message: parameter 'p' must be an integer
       name: bad_request
-      temporary: true
-      timeout: true
+      temporary: false
+      timeout: false
     required:
     - name
     - id
@@ -2164,11 +2173,11 @@ definitions:
       temporary:
         type: boolean
         description: Is the error temporary?
-        example: false
+        example: true
       timeout:
         type: boolean
         description: Is the error a timeout?
-        example: true
+        example: false
     description: Internal error. The returned response contains details. (default view)
     example:
       fault: true
@@ -2176,7 +2185,7 @@ definitions:
       message: parameter 'p' must be an integer
       name: bad_request
       temporary: true
-      timeout: true
+      timeout: false
     required:
     - name
     - id
@@ -2211,7 +2220,7 @@ definitions:
       timeout:
         type: boolean
         description: Is the error a timeout?
-        example: true
+        example: false
     description: Bad request, e.g. invalid data was sent in the request. (default view)
     example:
       fault: true
@@ -2234,7 +2243,7 @@ definitions:
       fault:
         type: boolean
         description: Is the error a server-side fault?
-        example: true
+        example: false
       id:
         type: string
         description: ID is a unique identifier for this particular occurrence of the problem.
@@ -2250,18 +2259,18 @@ definitions:
       temporary:
         type: boolean
         description: Is the error temporary?
-        example: false
+        example: true
       timeout:
         type: boolean
         description: Is the error a timeout?
-        example: true
+        example: false
     description: Conflict, duplicated reference id (default view)
     example:
-      fault: false
+      fault: true
       id: 123abc
       message: parameter 'p' must be an integer
       name: bad_request
-      temporary: true
+      temporary: false
       timeout: true
     required:
     - name
@@ -2305,7 +2314,7 @@ definitions:
       message: parameter 'p' must be an integer
       name: bad_request
       temporary: false
-      timeout: true
+      timeout: false
     required:
     - name
     - id
@@ -2320,34 +2329,34 @@ definitions:
       amount:
         type: string
         description: Amount that will be debited from the payer account.
-        example: Saepe dolor quas sint.
+        example: Voluptates similique est quam molestias alias illo.
       currency:
         type: string
         description: ISO4217 Currency
-        example: Accusamus quas.
+        example: Qui qui fuga nam dicta labore numquam.
       externalId:
         type: string
         description: External id is used as a reference to the transaction.
-        example: Ea corporis laborum.
+        example: Qui quam dolorum.
       payee:
         $ref: '#/definitions/PartyRequestBody'
       payeeNote:
         type: string
         description: Message that will be written in the payee transaction history note field.
-        example: Tempore voluptates similique est quam molestias alias.
+        example: Ut non officia molestiae amet modi qui.
       payerMessage:
         type: string
         description: Message that will be written in the payer transaction history message field.
-        example: Consequatur est placeat minima voluptatem dolores.
+        example: Sequi expedita occaecati odio.
     example:
-      amount: Maiores qui qui.
-      currency: Nam dicta labore numquam.
-      externalId: Qui quam dolorum.
+      amount: Suscipit magnam dolores eligendi itaque consequuntur.
+      currency: Nostrum soluta quaerat et et ipsa voluptatum.
+      externalId: Et accusantium magnam accusantium veritatis.
       payee:
         partyId: Corporis perspiciatis provident quis adipisci harum.
         partyIdType: EMAIL
-      payeeNote: Ut non officia molestiae amet modi qui.
-      payerMessage: Sequi expedita occaecati odio.
+      payeeNote: Sed omnis vel et est explicabo vitae.
+      payerMessage: Magnam laborum et.
   RemittanceTransferStatusBadRequestResponseBody:
     title: 'Mediatype identifier: application/vnd.goa.error; view=default'
     type: object
@@ -2371,19 +2380,19 @@ definitions:
       temporary:
         type: boolean
         description: Is the error temporary?
-        example: false
+        example: true
       timeout:
         type: boolean
         description: Is the error a timeout?
-        example: false
+        example: true
     description: Bad request, e.g. an incorrectly formatted reference id was provided. (default view)
     example:
-      fault: false
+      fault: true
       id: 123abc
       message: parameter 'p' must be an integer
       name: bad_request
-      temporary: true
-      timeout: false
+      temporary: false
+      timeout: true
     required:
     - name
     - id
@@ -2398,7 +2407,7 @@ definitions:
       fault:
         type: boolean
         description: Is the error a server-side fault?
-        example: false
+        example: true
       id:
         type: string
         description: ID is a unique identifier for this particular occurrence of the problem.
@@ -2414,18 +2423,18 @@ definitions:
       temporary:
         type: boolean
         description: Is the error temporary?
-        example: true
+        example: false
       timeout:
         type: boolean
         description: Is the error a timeout?
-        example: true
+        example: false
     description: Internal Error. Note that if the retreieved transfer has failed, it will not cause this status to be returned. This status is only returned if the GET request itself fails. (default view)
     example:
       fault: false
       id: 123abc
       message: parameter 'p' must be an integer
       name: bad_request
-      temporary: true
+      temporary: false
       timeout: false
     required:
     - name
@@ -2461,7 +2470,7 @@ definitions:
       timeout:
         type: boolean
         description: Is the error a timeout?
-        example: false
+        example: true
     description: Resource not found. (default view)
     example:
       fault: true
@@ -2484,49 +2493,49 @@ definitions:
       amount:
         type: string
         description: ' Amount that will be debited from the payer account.'
-        example: Suscipit magnam dolores eligendi itaque consequuntur.
+        example: Rem corporis qui quod sit aut.
       currency:
         type: string
         description: ISO4217 Currency
-        example: Nostrum soluta quaerat et et ipsa voluptatum.
+        example: Ut nemo eos delectus voluptatum eaque.
       externalId:
         type: string
         description: External id is used as a reference to the transaction
-        example: Magnam laborum et.
+        example: Facilis rerum eum cupiditate sed sint.
       financialTransactionId:
         type: string
         description: Financial transactionIdd from mobile money manager
-        example: Et accusantium magnam accusantium veritatis.
+        example: Maiores sed magnam doloremque at.
       payee:
         $ref: '#/definitions/PartyResponseBody'
       payeeNote:
         type: string
         description: Message that will be written in the payee transaction history note field.
-        example: Sed omnis vel et est explicabo vitae.
+        example: Similique numquam et quos ut.
       reason:
         $ref: '#/definitions/ErrorReasonResponseBody'
       status:
         type: string
         description: Status
-        example: PENDING
+        example: FAILED
         enum:
         - PENDING
         - SUCCESSFUL
         - FAILED
     description: TransferStatusResponseBody result type (default view)
     example:
-      amount: Corporis qui quod sit aut.
-      currency: Ut nemo eos delectus voluptatum eaque.
-      externalId: Facilis rerum eum cupiditate sed sint.
-      financialTransactionId: Maiores sed magnam doloremque at.
+      amount: Alias ullam praesentium.
+      currency: Commodi incidunt debitis corporis nihil.
+      externalId: Placeat molestias sapiente aperiam aliquam.
+      financialTransactionId: Cum ad ab vel nihil sed.
       payee:
         partyId: In maxime fuga quo consequatur dolores.
         partyIdType: MSISDN
-      payeeNote: Similique numquam et quos ut.
+      payeeNote: Quia voluptatem tempore tempore.
       reason:
         code: PAYER_NOT_FOUND
         message: Payee does not exist
-      status: FAILED
+      status: SUCCESSFUL
   TargetEnvironmentResponseBody:
     title: TargetEnvironmentResponseBody
     type: object
@@ -2534,9 +2543,9 @@ definitions:
       apiKey:
         type: string
         description: The target environment
-        example: Qui aut soluta voluptatibus.
+        example: Dolor ad non deleniti dolores blanditiis et.
     example:
-      apiKey: Ut ea.
+      apiKey: Ut optio et atque eos ducimus expedita.
   UserGetUserBadRequestResponseBody:
     title: 'Mediatype identifier: application/vnd.goa.error; view=default'
     type: object
@@ -2544,7 +2553,7 @@ definitions:
       fault:
         type: boolean
         description: Is the error a server-side fault?
-        example: false
+        example: true
       id:
         type: string
         description: ID is a unique identifier for this particular occurrence of the problem.
@@ -2560,7 +2569,7 @@ definitions:
       temporary:
         type: boolean
         description: Is the error temporary?
-        example: true
+        example: false
       timeout:
         type: boolean
         description: Is the error a timeout?
@@ -2571,8 +2580,8 @@ definitions:
       id: 123abc
       message: parameter 'p' must be an integer
       name: bad_request
-      temporary: false
-      timeout: true
+      temporary: true
+      timeout: false
     required:
     - name
     - id
@@ -2603,7 +2612,7 @@ definitions:
       temporary:
         type: boolean
         description: Is the error temporary?
-        example: false
+        example: true
       timeout:
         type: boolean
         description: Is the error a timeout?
@@ -2615,7 +2624,7 @@ definitions:
       message: parameter 'p' must be an integer
       name: bad_request
       temporary: true
-      timeout: true
+      timeout: false
     required:
     - name
     - id
@@ -2646,19 +2655,19 @@ definitions:
       temporary:
         type: boolean
         description: Is the error temporary?
-        example: false
+        example: true
       timeout:
         type: boolean
         description: Is the error a timeout?
         example: true
     description: Internal error. Check log for information. (default view)
     example:
-      fault: false
+      fault: true
       id: 123abc
       message: parameter 'p' must be an integer
       name: bad_request
       temporary: false
-      timeout: false
+      timeout: true
     required:
     - name
     - id
@@ -2675,14 +2684,14 @@ definitions:
       providerCallbackHost:
         type: string
         description: The provider callback host
-        example: Voluptatem officiis ut distinctio similique maxime voluptatem.
+        example: Voluptatibus autem ut ea adipisci perferendis.
       targetEnvironment:
         $ref: '#/definitions/TargetEnvironmentResponseBody'
     description: GetUserDetailsResponseBody result type (default view)
     example:
       paymentServerUrl:
         apiKey: Quidem illum voluptatibus dolor cum commodi ea.
-      providerCallbackHost: Perferendis dolorum rerum assumenda dolor.
+      providerCallbackHost: Eveniet est voluptatum itaque dolor sunt.
       targetEnvironment:
         apiKey: Natus est molestiae quibusdam quis et.
   UserGetUserInternalErrorResponseBody:
@@ -2692,7 +2701,7 @@ definitions:
       fault:
         type: boolean
         description: Is the error a server-side fault?
-        example: false
+        example: true
       id:
         type: string
         description: ID is a unique identifier for this particular occurrence of the problem.
@@ -2712,7 +2721,7 @@ definitions:
       timeout:
         type: boolean
         description: Is the error a timeout?
-        example: false
+        example: true
     description: Internal error. Check log for information. (default view)
     example:
       fault: true
@@ -2751,18 +2760,18 @@ definitions:
       temporary:
         type: boolean
         description: Is the error temporary?
-        example: false
+        example: true
       timeout:
         type: boolean
         description: Is the error a timeout?
-        example: true
+        example: false
     description: Not found, reference id not found or closed in sandbox (default view)
     example:
       fault: true
       id: 123abc
       message: parameter 'p' must be an integer
       name: bad_request
-      temporary: false
+      temporary: true
       timeout: true
     required:
     - name
@@ -2778,9 +2787,9 @@ definitions:
       X-Reference-Id:
         type: string
         description: Format - UUID.
-        example: Alias dolores sequi labore qui ad sed.
+        example: Mollitia omnis.
     example:
-      X-Reference-Id: Voluptas rem soluta voluptatum perspiciatis molestias nesciunt.
+      X-Reference-Id: Ut illo blanditiis veritatis ea qui aut.
     required:
     - X-Reference-Id
   UserNewKeyBadRequestResponseBody:
@@ -2813,11 +2822,11 @@ definitions:
         example: false
     description: Bad request, e.g. invalid data was sent in the request. (default view)
     example:
-      fault: true
+      fault: false
       id: 123abc
       message: parameter 'p' must be an integer
       name: bad_request
-      temporary: false
+      temporary: true
       timeout: false
     required:
     - name
@@ -2849,11 +2858,11 @@ definitions:
       temporary:
         type: boolean
         description: Is the error temporary?
-        example: false
+        example: true
       timeout:
         type: boolean
         description: Is the error a timeout?
-        example: true
+        example: false
     description: Internal error. Check log for information. (default view)
     example:
       fault: false
@@ -2861,7 +2870,7 @@ definitions:
       message: parameter 'p' must be an integer
       name: bad_request
       temporary: true
-      timeout: false
+      timeout: true
     required:
     - name
     - id
@@ -2910,9 +2919,9 @@ definitions:
       X-Reference-Id:
         type: string
         description: Format - UUID.
-        example: Nisi aliquam.
+        example: Beatae odit dolore totam tempore alias dolores.
     example:
-      X-Reference-Id: Voluptas omnis adipisci nihil id porro.
+      X-Reference-Id: Labore qui ad sed.
     required:
     - X-Reference-Id
   UserNewKeyResponseBody:
@@ -2922,9 +2931,9 @@ definitions:
       apiKey:
         type: string
         description: The created API user key
-        example: Neque sapiente aut velit.
+        example: Omnis adipisci nihil.
     example:
-      apiKey: Voluptas assumenda sit rerum minima.
+      apiKey: Porro voluptate.
   UserNewUserBadRequestResponseBody:
     title: 'Mediatype identifier: application/vnd.goa.error; view=default'
     type: object
@@ -2932,7 +2941,7 @@ definitions:
       fault:
         type: boolean
         description: Is the error a server-side fault?
-        example: false
+        example: true
       id:
         type: string
         description: ID is a unique identifier for this particular occurrence of the problem.
@@ -2955,11 +2964,11 @@ definitions:
         example: false
     description: Bad request, e.g. invalid data was sent in the request. (default view)
     example:
-      fault: true
+      fault: false
       id: 123abc
       message: parameter 'p' must be an integer
       name: bad_request
-      temporary: true
+      temporary: false
       timeout: false
     required:
     - name
@@ -3009,7 +3018,7 @@ definitions:
       fault:
         type: boolean
         description: Is the error a server-side fault?
-        example: true
+        example: false
       id:
         type: string
         description: ID is a unique identifier for this particular occurrence of the problem.
@@ -3029,15 +3038,15 @@ definitions:
       timeout:
         type: boolean
         description: Is the error a timeout?
-        example: true
+        example: false
     description: Internal error. Check log for information. (default view)
     example:
-      fault: true
+      fault: false
       id: 123abc
       message: parameter 'p' must be an integer
       name: bad_request
       temporary: false
-      timeout: true
+      timeout: false
     required:
     - name
     - id
@@ -3052,9 +3061,9 @@ definitions:
       providerCallbackHost:
         type: string
         description: The provider callback host
-        example: Sunt autem sed voluptas labore.
+        example: Dolorem architecto aperiam deserunt.
     example:
-      providerCallbackHost: Commodi voluptas omnis numquam eos dolorem et.
+      providerCallbackHost: Eos ut iusto nisi aliquam soluta.
 externalDocs:
   description: Library Usage
   url: https://github.com/wondenge/momo-go/blob/master/README.md

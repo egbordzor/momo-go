@@ -7,7 +7,7 @@ import (
 	_ "goa.design/plugins/v3/zaplogger" // Enables ZapLogger Plugin
 )
 
-var _ = Service("Disbursement", func() {
+var _ = Service("disbursement", func() {
 
 	HTTP(func() {
 		Path("/disbursement")
@@ -136,7 +136,7 @@ var _ = Service("Disbursement", func() {
 		// 500
 		// TODO
 		// Error("internal_error", ErrorReason, "Internal error.")
-		Error("internal_error", ErrorReason, "Internal error.")
+		Error("internal_error", ErrorResult, "Internal error.")
 
 		HTTP(func() {
 			POST("/v1_0/transfer")

@@ -8,7 +8,7 @@ import (
 )
 
 // Partner Gateway sandbox provisioning API document
-var _ = Service("User", func() {
+var _ = Service("user", func() {
 
 	HTTP(func() {
 		Path("/")
