@@ -1,0 +1,3060 @@
+swagger: "2.0"
+info:
+  title: MoMo APIs
+  description: HTTP Service for accessing MTN's MoMo API.
+  termsOfService: https://github.com/wondenge/momo-go/blob/master/LICENCE
+  contact:
+    name: William Ondenge
+    email: ondengew@gmail.com
+    url: https://www.ondenge.me
+  license:
+    name: Apache License
+    url: https://github.com/wondenge/momo-go/blob/master/LICENCE
+  version: "1.0"
+host: sandbox.momodeveloper.mtn.com
+consumes:
+- application/json
+- application/xml
+- application/gob
+produces:
+- application/json
+- application/xml
+- application/gob
+paths:
+  /apiuser/{APIUser}:
+    get:
+      tags:
+      - User
+      summary: GetUserDetails User
+      description: GET API User Details
+      operationId: User#GetUserDetails
+      produces:
+      - application/json
+      parameters:
+      - name: APIUser
+        in: path
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            $ref: '#/definitions/UserGetUserDetailsResponseBody'
+        "400":
+          description: Bad Request response.
+          schema:
+            $ref: '#/definitions/UserGetUserDetailsBadRequestResponseBody'
+        "500":
+          description: Internal Server Error response.
+          schema:
+            $ref: '#/definitions/UserGetUserDetailsInternalErrorResponseBody'
+      schemes:
+      - https
+  /collection/token:
+    post:
+      tags:
+      - Collection
+      summary: NewToken Collection
+      description: Creates an Access Token.
+      operationId: Collection#NewToken
+      produces:
+      - application/json
+      parameters:
+      - name: string
+        in: body
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/CollectionNewTokenResponseBody'
+        "401":
+          description: Unauthorized response.
+          schema:
+            $ref: '#/definitions/CollectionNewTokenUnauthorizedResponseBody'
+        "500":
+          description: Internal Server Error response.
+          schema:
+            $ref: '#/definitions/CollectionNewTokenInternalErrorResponseBody'
+      schemes:
+      - https
+  /collection/v1_0/account/balance:
+    get:
+      tags:
+      - Collection
+      summary: GetBalance Collection
+      description: Get the balance of the account
+      operationId: Collection#GetBalance
+      produces:
+      - application/json
+      parameters:
+      - name: string
+        in: body
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            $ref: '#/definitions/CollectionGetBalanceResponseBody'
+        "400":
+          description: Bad Request response.
+          schema:
+            $ref: '#/definitions/CollectionGetBalanceBadRequestResponseBody'
+        "500":
+          description: Internal Server Error response.
+          schema:
+            $ref: '#/definitions/CollectionGetBalanceInternalErrorResponseBody'
+      schemes:
+      - https
+  /collection/v1_0/accountholder/{accountHolderIdType}/{accountHolderId}/active:
+    get:
+      tags:
+      - Collection
+      summary: RetrieveAccountHolder Collection
+      description: Checks if an account holder is registered and active in the system
+      operationId: Collection#RetrieveAccountHolder
+      parameters:
+      - name: accountHolderIdType
+        in: path
+        description: Specifies the type of the party ID
+        required: true
+        type: string
+      - name: accountHolderId
+        in: path
+        description: The party number.
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            type: string
+        "400":
+          description: Bad Request response.
+          schema:
+            $ref: '#/definitions/CollectionRetrieveAccountHolderBadRequestResponseBody'
+        "500":
+          description: Internal Server Error response.
+          schema:
+            $ref: '#/definitions/CollectionRetrieveAccountHolderInternalErrorResponseBody'
+      schemes:
+      - https
+  /collection/v1_0/requesttopay:
+    post:
+      tags:
+      - Collection
+      summary: PaymentRequest Collection
+      description: Request a payment from a consumer (Payer).
+      operationId: Collection#PaymentRequest
+      parameters:
+      - name: PaymentRequestRequestBody
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/CollectionPaymentRequestRequestBody'
+      responses:
+        "202":
+          description: Accepted response.
+          schema:
+            type: string
+        "400":
+          description: Bad Request response.
+          schema:
+            $ref: '#/definitions/CollectionPaymentRequestBadRequestResponseBody'
+        "409":
+          description: Conflict response.
+          schema:
+            $ref: '#/definitions/CollectionPaymentRequestConflictResponseBody'
+        "500":
+          description: Internal Server Error response.
+          schema:
+            $ref: '#/definitions/CollectionPaymentRequestInternalErrorResponseBody'
+      schemes:
+      - https
+  /collection/v1_0/requesttopay/{referenceId}:
+    get:
+      tags:
+      - Collection
+      summary: PaymentStatus Collection
+      description: Get the status of a request to pay.
+      operationId: Collection#PaymentStatus
+      produces:
+      - application/json
+      parameters:
+      - name: referenceId
+        in: path
+        description: ' UUID of transaction to get result'
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            $ref: '#/definitions/CollectionPaymentStatusResponseBody'
+        "400":
+          description: Bad Request response.
+          schema:
+            $ref: '#/definitions/CollectionPaymentStatusBadRequestResponseBody'
+        "404":
+          description: Not Found response.
+          schema:
+            $ref: '#/definitions/CollectionPaymentStatusNotFoundResponseBody'
+        "500":
+          description: Internal Server Error response.
+          schema:
+            $ref: '#/definitions/CollectionPaymentStatusInternalErrorResponseBody'
+      schemes:
+      - https
+  /disbursement/token:
+    post:
+      tags:
+      - Disbursement
+      summary: NewToken Disbursement
+      description: Creates an Access Token.
+      operationId: Disbursement#NewToken
+      produces:
+      - application/json
+      parameters:
+      - name: string
+        in: body
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            $ref: '#/definitions/DisbursementNewTokenResponseBody'
+        "401":
+          description: Unauthorized response.
+          schema:
+            $ref: '#/definitions/DisbursementNewTokenUnauthorizedResponseBody'
+        "500":
+          description: Internal Server Error response.
+          schema:
+            $ref: '#/definitions/DisbursementNewTokenInternalErrorResponseBody'
+      schemes:
+      - https
+  /disbursement/v1_0/account/balance:
+    get:
+      tags:
+      - Disbursement
+      summary: GetBalance Disbursement
+      description: Get the balance of the account
+      operationId: Disbursement#GetBalance
+      produces:
+      - application/json
+      parameters:
+      - name: string
+        in: body
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            $ref: '#/definitions/DisbursementGetBalanceResponseBody'
+        "400":
+          description: Bad Request response.
+          schema:
+            $ref: '#/definitions/DisbursementGetBalanceBadRequestResponseBody'
+        "500":
+          description: Internal Server Error response.
+          schema:
+            $ref: '#/definitions/DisbursementGetBalanceInternalErrorResponseBody'
+      schemes:
+      - https
+  /disbursement/v1_0/accountholder/{accountHolderIdType}/{accountHolderId}/active:
+    get:
+      tags:
+      - Disbursement
+      summary: RetrieveAccountHolder Disbursement
+      description: Checks if an account holder is registered and active in the system
+      operationId: Disbursement#RetrieveAccountHolder
+      parameters:
+      - name: accountHolderIdType
+        in: path
+        description: Specifies the type of the party ID
+        required: true
+        type: string
+      - name: accountHolderId
+        in: path
+        description: The party number.
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            type: string
+        "400":
+          description: Bad Request response.
+          schema:
+            $ref: '#/definitions/DisbursementRetrieveAccountHolderBadRequestResponseBody'
+        "500":
+          description: Internal Server Error response.
+          schema:
+            $ref: '#/definitions/DisbursementRetrieveAccountHolderInternalErrorResponseBody'
+      schemes:
+      - https
+  /disbursement/v1_0/transfer:
+    post:
+      tags:
+      - Disbursement
+      summary: Transfer Disbursement
+      description: transfer an amount from the owner’s account to a payee account.
+      operationId: Disbursement#Transfer
+      parameters:
+      - name: TransferRequestBody
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/DisbursementTransferRequestBody'
+      responses:
+        "202":
+          description: Accepted response.
+          schema:
+            type: string
+        "400":
+          description: Bad Request response.
+          schema:
+            $ref: '#/definitions/DisbursementTransferBadRequestResponseBody'
+        "409":
+          description: Conflict response.
+          schema:
+            $ref: '#/definitions/DisbursementTransferConflictResponseBody'
+        "500":
+          description: Internal Server Error response.
+          schema:
+            $ref: '#/definitions/DisbursementTransferInternalErrorResponseBody'
+      schemes:
+      - https
+  /disbursement/v1_0/transfer/{referenceId}:
+    get:
+      tags:
+      - Disbursement
+      summary: TransferStatus Disbursement
+      description: Get the status of a transfer.
+      operationId: Disbursement#TransferStatus
+      produces:
+      - application/json
+      parameters:
+      - name: referenceId
+        in: path
+        description: ' UUID of transaction to get result'
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            $ref: '#/definitions/DisbursementTransferStatusResponseBody'
+        "400":
+          description: Bad Request response.
+          schema:
+            $ref: '#/definitions/DisbursementTransferStatusBadRequestResponseBody'
+        "404":
+          description: Not Found response.
+          schema:
+            $ref: '#/definitions/DisbursementTransferStatusNotFoundResponseBody'
+        "500":
+          description: Internal Server Error response.
+          schema:
+            $ref: '#/definitions/DisbursementTransferStatusInternalErrorResponseBody'
+      schemes:
+      - https
+  /remittance/token:
+    post:
+      tags:
+      - Remittance
+      summary: NewToken Remittance
+      description: Creates an Access Token.
+      operationId: Remittance#NewToken
+      produces:
+      - application/json
+      parameters:
+      - name: string
+        in: body
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            $ref: '#/definitions/RemittanceNewTokenResponseBody'
+        "401":
+          description: Unauthorized response.
+          schema:
+            $ref: '#/definitions/RemittanceNewTokenUnauthorizedResponseBody'
+        "500":
+          description: Internal Server Error response.
+          schema:
+            $ref: '#/definitions/RemittanceNewTokenInternalErrorResponseBody'
+      schemes:
+      - https
+  /remittance/v1_0/account/balance:
+    get:
+      tags:
+      - Remittance
+      summary: GetBalance Remittance
+      description: Get the balance of the account
+      operationId: Remittance#GetBalance
+      produces:
+      - application/json
+      parameters:
+      - name: string
+        in: body
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Ok
+          schema:
+            $ref: '#/definitions/RemittanceGetBalanceResponseBody'
+        "400":
+          description: Bad Request response.
+          schema:
+            $ref: '#/definitions/RemittanceGetBalanceBadRequestResponseBody'
+        "500":
+          description: Internal Server Error response.
+          schema:
+            $ref: '#/definitions/RemittanceGetBalanceInternalErrorResponseBody'
+      schemes:
+      - https
+  /remittance/v1_0/accountholder/{accountHolderIdType}/{accountHolderId}/active:
+    get:
+      tags:
+      - Remittance
+      summary: RetrieveAccountHolder Remittance
+      description: Checks if an account holder is registered and active in the system
+      operationId: Remittance#RetrieveAccountHolder
+      parameters:
+      - name: accountHolderIdType
+        in: path
+        description: Specifies the type of the party ID
+        required: true
+        type: string
+      - name: accountHolderId
+        in: path
+        description: The party number.
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Ok. True if account holder is registered and active, false if the account holder is not active or not found found
+          schema:
+            type: string
+        "400":
+          description: Bad Request response.
+          schema:
+            $ref: '#/definitions/RemittanceRetrieveAccountHolderBadRequestResponseBody'
+        "500":
+          description: Internal Server Error response.
+          schema:
+            $ref: '#/definitions/RemittanceRetrieveAccountHolderInternalErrorResponseBody'
+      schemes:
+      - https
+  /remittance/v1_0/transfer:
+    post:
+      tags:
+      - Remittance
+      summary: Transfer Remittance
+      description: Request a payment from a consumer (Payer).
+      operationId: Remittance#Transfer
+      parameters:
+      - name: TransferRequestBody
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/RemittanceTransferRequestBody'
+      responses:
+        "202":
+          description: Accepted response.
+          schema:
+            type: string
+        "400":
+          description: Bad Request response.
+          schema:
+            $ref: '#/definitions/RemittanceTransferBadRequestResponseBody'
+        "409":
+          description: Conflict response.
+          schema:
+            $ref: '#/definitions/RemittanceTransferConflictResponseBody'
+        "500":
+          description: Internal Server Error response.
+          schema:
+            $ref: '#/definitions/RemittanceTransferInternalErrorResponseBody'
+      schemes:
+      - https
+  /remittance/v1_0/transfer/{referenceId}:
+    get:
+      tags:
+      - Remittance
+      summary: TransferStatus Remittance
+      description: Get the status of a request to pay.
+      operationId: Remittance#TransferStatus
+      produces:
+      - application/json
+      parameters:
+      - name: referenceId
+        in: path
+        description: ' UUID of transaction to get result'
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            $ref: '#/definitions/RemittanceTransferStatusResponseBody'
+        "400":
+          description: Bad Request response.
+          schema:
+            $ref: '#/definitions/RemittanceTransferStatusBadRequestResponseBody'
+        "404":
+          description: Not Found response.
+          schema:
+            $ref: '#/definitions/RemittanceTransferStatusNotFoundResponseBody'
+        "500":
+          description: Internal Server Error response.
+          schema:
+            $ref: '#/definitions/RemittanceTransferStatusInternalErrorResponseBody'
+      schemes:
+      - https
+  /v1_0/apiuser:
+    post:
+      tags:
+      - User
+      summary: NewUser User
+      description: Used to create an API user in the sandbox target environment.
+      operationId: User#NewUser
+      parameters:
+      - name: NewUserRequestBody
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/UserNewUserRequestBody'
+      responses:
+        "201":
+          description: Created response.
+          schema:
+            type: string
+        "400":
+          description: Bad Request response.
+          schema:
+            $ref: '#/definitions/UserNewUserBadRequestResponseBody'
+        "409":
+          description: Conflict response.
+          schema:
+            $ref: '#/definitions/UserNewUserConflictResponseBody'
+        "500":
+          description: Internal Server Error response.
+          schema:
+            $ref: '#/definitions/UserNewUserInternalErrorResponseBody'
+      schemes:
+      - https
+  /v1_0/apiuser/{X-Reference-Id}:
+    get:
+      tags:
+      - User
+      summary: GetUser User
+      description: Used to get API user information.
+      operationId: User#GetUser
+      parameters:
+      - name: GetUserRequestBody
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/UserGetUserRequestBody'
+          required:
+          - X-Reference-Id
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            type: string
+        "400":
+          description: Bad Request response.
+          schema:
+            $ref: '#/definitions/UserGetUserBadRequestResponseBody'
+        "404":
+          description: Not Found response.
+          schema:
+            $ref: '#/definitions/UserGetUserNotFoundResponseBody'
+        "500":
+          description: Internal Server Error response.
+          schema:
+            $ref: '#/definitions/UserGetUserInternalErrorResponseBody'
+      schemes:
+      - https
+  /v1_0/apiuser/{X-Reference-Id}/apikey:
+    post:
+      tags:
+      - User
+      summary: NewKey User
+      description: Used to create an API key for an API user in the sandbox target environment.
+      operationId: User#NewKey
+      parameters:
+      - name: NewKeyRequestBody
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/UserNewKeyRequestBody'
+          required:
+          - X-Reference-Id
+      responses:
+        "201":
+          description: Created response.
+          schema:
+            $ref: '#/definitions/UserNewKeyResponseBody'
+        "400":
+          description: Bad Request response.
+          schema:
+            $ref: '#/definitions/UserNewKeyBadRequestResponseBody'
+        "404":
+          description: Not Found response.
+          schema:
+            $ref: '#/definitions/UserNewKeyNotFoundResponseBody'
+        "500":
+          description: Internal Server Error response.
+          schema:
+            $ref: '#/definitions/UserNewKeyInternalErrorResponseBody'
+      schemes:
+      - https
+definitions:
+  CollectionGetBalanceBadRequestResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: false
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: false
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: true
+    description: Bad request, e.g. invalid data was sent in the request. (default view)
+    example:
+      fault: true
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: false
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  CollectionGetBalanceInternalErrorResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: true
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: true
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: false
+    description: Internal error. The returned response contains details. (default view)
+    example:
+      fault: true
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: false
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  CollectionGetBalanceResponseBody:
+    title: 'Mediatype identifier: balance; view=default'
+    type: object
+    properties:
+      availableBalance:
+        type: string
+        description: The available balance of the account
+        example: Vel in autem.
+      currency:
+        type: string
+        description: ISO4217 Currency
+        example: Unde aut dolor aut consequatur.
+    description: GetBalanceResponseBody result type (default view)
+    example:
+      availableBalance: Error qui asperiores repudiandae blanditiis illum quos.
+      currency: Provident ea placeat rem.
+  CollectionNewTokenInternalErrorResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: false
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: false
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: false
+    description: Error (default view)
+    example:
+      fault: true
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: false
+      timeout: true
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  CollectionNewTokenResponseBody:
+    title: 'Mediatype identifier: tokenpost200applicationjsonresponse; view=default'
+    type: object
+    properties:
+      access_token:
+        type: string
+        description: A JWT token which can be used to authorize against the other API end-points.
+        example: Iusto beatae est ut perspiciatis ut harum.
+      expires_in:
+        type: integer
+        description: The validity time in seconds of the token.
+        example: 1892691476
+        format: int32
+      token_type:
+        type: string
+        description: The token type.
+        example: Aspernatur ut et consequuntur placeat quam.
+    description: NewTokenResponseBody result type (default view)
+    example:
+      access_token: Est dolores ipsa.
+      expires_in: 1590797597
+      token_type: Minima numquam quas omnis quis deserunt cupiditate.
+  CollectionNewTokenUnauthorizedResponseBody:
+    title: 'Mediatype identifier: tokenpost401applicationjsonresponse; view=default'
+    type: object
+    properties:
+      error:
+        type: string
+        description: An error code.
+        example: Veniam sit doloribus qui ea nobis libero.
+    description: Unauthorized (default view)
+    example:
+      error: Qui est cupiditate autem dolorum nostrum ut.
+  CollectionPaymentRequestBadRequestResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: false
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: false
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: true
+    description: Bad request, e.g. invalid data was sent in the request. (default view)
+    example:
+      fault: true
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: false
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  CollectionPaymentRequestConflictResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: true
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: true
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: false
+    description: Conflict, duplicated reference id (default view)
+    example:
+      fault: false
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: false
+      timeout: true
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  CollectionPaymentRequestInternalErrorResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: true
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: true
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: true
+    description: Internal error. (default view)
+    example:
+      fault: false
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: false
+      timeout: false
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  CollectionPaymentRequestRequestBody:
+    title: CollectionPaymentRequestRequestBody
+    type: object
+    properties:
+      amount:
+        type: string
+        description: Amount that will be debited from the payer account.
+        example: Dolores quod.
+      currency:
+        type: string
+        description: ISO4217 Currency
+        example: Quas labore est dicta non qui.
+      externalId:
+        type: string
+        description: External id is used as a reference to the transaction.
+        example: Accusamus et mollitia ut.
+      payeeNote:
+        type: string
+        description: Message that will be written in the payee transaction history note field.
+        example: Voluptatem dolorem voluptatem laudantium ullam.
+      payer:
+        $ref: '#/definitions/PartyRequestBody'
+      payerMessage:
+        type: string
+        description: Message that will be written in the payer transaction history message field.
+        example: Velit et sint ea aliquid veniam illum.
+    example:
+      amount: Deleniti nihil aut dignissimos molestias velit.
+      currency: Aliquid nihil.
+      externalId: Ex deserunt fugiat.
+      payeeNote: Voluptatem sequi eos quasi nemo voluptatibus ea.
+      payer:
+        partyId: Corporis perspiciatis provident quis adipisci harum.
+        partyIdType: EMAIL
+      payerMessage: Recusandae consequatur ratione maxime nesciunt fugiat.
+  CollectionPaymentStatusBadRequestResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: false
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: true
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: false
+    description: Bad request, e.g. an incorrectly formatted reference id was provided. (default view)
+    example:
+      fault: false
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: false
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  CollectionPaymentStatusInternalErrorResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: true
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: false
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: true
+    description: Internal error. (default view)
+    example:
+      fault: false
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: false
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  CollectionPaymentStatusNotFoundResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: false
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: true
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: false
+    description: Resource not found. (default view)
+    example:
+      fault: true
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: false
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  CollectionPaymentStatusResponseBody:
+    title: 'Mediatype identifier: requesttopayresult; view=default'
+    type: object
+    properties:
+      amount:
+        type: string
+        description: Amount that will be debited from the payer account.
+        example: "100"
+      currency:
+        type: string
+        description: ISO4217 Currency
+        example: UGX
+      externalId:
+        type: string
+        description: External id provided in the creation of the requestToPay transaction.
+        example: "947354"
+      financialTransactionId:
+        type: string
+        description: Financial transactionIdd from mobile money manager.
+        example: "23503452"
+      payeeNote:
+        type: string
+        description: Message that will be written in the payee transaction history note field.
+        example: Velit quidem ea sunt nobis.
+      payer:
+        $ref: '#/definitions/PartyResponseBody'
+      payerMessage:
+        type: string
+        description: Message that will be written in the payer transaction history message field.
+        example: Recusandae quo est.
+      reason:
+        $ref: '#/definitions/ErrorReasonResponseBody'
+      status:
+        type: string
+        description: Status
+        example: SUCCESSFUL
+        enum:
+        - PENDING
+        - SUCCESSFUL
+        - FAILED
+    description: PaymentStatusResponseBody result type (default view)
+    example:
+      amount: "100"
+      currency: UGX
+      externalId: "947354"
+      financialTransactionId: "23503452"
+      payeeNote: Qui occaecati deleniti.
+      payer:
+        partyId: In maxime fuga quo consequatur dolores.
+        partyIdType: MSISDN
+      payerMessage: Porro provident facilis.
+      reason:
+        code: PAYER_NOT_FOUND
+        message: Payee does not exist
+      status: PENDING
+  CollectionRetrieveAccountHolderBadRequestResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: false
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: false
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: true
+    description: Bad request, e.g. invalid data was sent in the request. (default view)
+    example:
+      fault: false
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: true
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  CollectionRetrieveAccountHolderInternalErrorResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: false
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: true
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: false
+    description: Internal error. The returned response contains details. (default view)
+    example:
+      fault: false
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: false
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  DisbursementGetBalanceBadRequestResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: true
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: false
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: false
+    description: Bad request, e.g. invalid data was sent in the request. (default view)
+    example:
+      fault: false
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: false
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  DisbursementGetBalanceInternalErrorResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: false
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: false
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: true
+    description: Internal error. The returned response contains details. (default view)
+    example:
+      fault: false
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: false
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  DisbursementGetBalanceResponseBody:
+    title: 'Mediatype identifier: balance; view=default'
+    type: object
+    properties:
+      availableBalance:
+        type: string
+        description: The available balance of the account
+        example: Est itaque alias quibusdam est.
+      currency:
+        type: string
+        description: ISO4217 Currency
+        example: Quam similique.
+    description: GetBalanceResponseBody result type (default view)
+    example:
+      availableBalance: Inventore fugiat eaque quod.
+      currency: Repudiandae dolore rerum.
+  DisbursementNewTokenInternalErrorResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: true
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: true
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: true
+    description: Error (default view)
+    example:
+      fault: false
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: false
+      timeout: true
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  DisbursementNewTokenResponseBody:
+    title: 'Mediatype identifier: tokenpost200applicationjsonresponse; view=default'
+    type: object
+    properties:
+      access_token:
+        type: string
+        description: A JWT token which can be used to authorize against the other API end-points.
+        example: Similique nam quas.
+      expires_in:
+        type: integer
+        description: The validity time in seconds of the token.
+        example: 1650204335
+        format: int32
+      token_type:
+        type: string
+        description: The token type.
+        example: Est laborum in ratione.
+    description: NewTokenResponseBody result type (default view)
+    example:
+      access_token: Odio itaque id qui laborum repudiandae et.
+      expires_in: 1061546812
+      token_type: Maxime sit tempore quasi cupiditate.
+  DisbursementNewTokenUnauthorizedResponseBody:
+    title: 'Mediatype identifier: tokenpost401applicationjsonresponse; view=default'
+    type: object
+    properties:
+      error:
+        type: string
+        description: An error code.
+        example: Placeat cumque dignissimos voluptatem.
+    description: Unauthorized (default view)
+    example:
+      error: Quam at temporibus corrupti cum.
+  DisbursementRetrieveAccountHolderBadRequestResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: true
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: true
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: false
+    description: Bad request, e.g. invalid data was sent in the request. (default view)
+    example:
+      fault: true
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: false
+      timeout: true
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  DisbursementRetrieveAccountHolderInternalErrorResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: false
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: true
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: false
+    description: Internal error. The returned response contains details. (default view)
+    example:
+      fault: true
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: false
+      timeout: true
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  DisbursementTransferBadRequestResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: true
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: true
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: true
+    description: Bad request, e.g. invalid data was sent in the request. (default view)
+    example:
+      fault: false
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: false
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  DisbursementTransferConflictResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: false
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: false
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: false
+    description: Conflict, duplicated reference id (default view)
+    example:
+      fault: false
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: false
+      timeout: true
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  DisbursementTransferInternalErrorResponseBody:
+    title: 'Mediatype identifier: errorreason; view=default'
+    type: object
+    properties:
+      code:
+        type: string
+        description: Code
+        example: PAYER_NOT_FOUND
+        enum:
+        - PAYEE_NOT_FOUND
+        - PAYER_NOT_FOUND
+        - NOT_ALLOWED
+        - NOT_ALLOWED_TARGET_ENVIRONMENT
+        - INVALID_CALLBACK_URL_HOST
+        - INVALID_CURRENCY
+        - SERVICE_UNAVAILABLE
+        - INTERNAL_PROCESSING_ERROR
+        - NOT_ENOUGH_FUNDS
+        - PAYER_LIMIT_REACHED
+        - PAYEE_NOT_ALLOWED_TO_RECEIVE
+        - PAYMENT_NOT_APPROVED
+        - RESOURCE_NOT_FOUND
+        - APPROVAL_REJECTED
+        - EXPIRED
+        - TRANSACTION_CANCELED
+        - RESOURCE_ALREADY_EXIST
+      message:
+        type: string
+        description: message
+        example: Payee does not exist
+    description: Internal error. (default view)
+    example:
+      code: PAYER_NOT_FOUND
+      message: Payee does not exist
+  DisbursementTransferRequestBody:
+    title: DisbursementTransferRequestBody
+    type: object
+    properties:
+      amount:
+        type: string
+        description: Amount that will be debited from the payer account.
+        example: Suscipit ipsa sint deserunt.
+      currency:
+        type: string
+        description: ISO4217 Currency
+        example: Distinctio corrupti molestiae in et optio.
+      externalId:
+        type: string
+        description: External id is used as a reference to the transaction.
+        example: Et harum.
+      payee:
+        $ref: '#/definitions/PartyRequestBody'
+      payeeNote:
+        type: string
+        description: Message that will be written in the payee transaction history note field.
+        example: Aut et possimus.
+      payerMessage:
+        type: string
+        description: Message that will be written in the payer transaction history message field.
+        example: Tempore fugiat eum ut voluptatem doloribus.
+    example:
+      amount: Tempore consequatur.
+      currency: Voluptatem perferendis assumenda qui natus nesciunt dolorum.
+      externalId: Est tempore qui molestiae molestiae sequi.
+      payee:
+        partyId: Corporis perspiciatis provident quis adipisci harum.
+        partyIdType: EMAIL
+      payeeNote: Est facilis sunt.
+      payerMessage: Eos aspernatur reiciendis dignissimos commodi officiis vero.
+  DisbursementTransferStatusBadRequestResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: false
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: false
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: true
+    description: Bad request, e.g. an incorrectly formatted reference id was provided. (default view)
+    example:
+      fault: false
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: false
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  DisbursementTransferStatusInternalErrorResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: false
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: true
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: false
+    description: Internal error. (default view)
+    example:
+      fault: false
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: true
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  DisbursementTransferStatusNotFoundResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: true
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: true
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: true
+    description: Resource not found. (default view)
+    example:
+      fault: false
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: false
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  DisbursementTransferStatusResponseBody:
+    title: 'Mediatype identifier: transferresult; view=default'
+    type: object
+    properties:
+      amount:
+        type: string
+        description: ' Amount that will be debited from the payer account.'
+        example: Sit quo velit nesciunt nihil et quasi.
+      currency:
+        type: string
+        description: ISO4217 Currency
+        example: Vero sequi est.
+      externalId:
+        type: string
+        description: External id is used as a reference to the transaction
+        example: Aperiam sit velit.
+      financialTransactionId:
+        type: string
+        description: Financial transactionIdd from mobile money manager
+        example: Vel et delectus et quisquam.
+      payee:
+        $ref: '#/definitions/PartyResponseBody'
+      payeeNote:
+        type: string
+        description: Message that will be written in the payee transaction history note field.
+        example: Provident quia adipisci maxime ut.
+      reason:
+        $ref: '#/definitions/ErrorReasonResponseBody'
+      status:
+        type: string
+        description: Status
+        example: FAILED
+        enum:
+        - PENDING
+        - SUCCESSFUL
+        - FAILED
+    description: TransferStatusResponseBody result type (default view)
+    example:
+      amount: Aut voluptatum labore.
+      currency: Magni laudantium est voluptatibus voluptatibus esse consequatur.
+      externalId: Enim quam.
+      financialTransactionId: Quas eos cum voluptatum.
+      payee:
+        partyId: In maxime fuga quo consequatur dolores.
+        partyIdType: MSISDN
+      payeeNote: Est aut dolor quos.
+      reason:
+        code: PAYER_NOT_FOUND
+        message: Payee does not exist
+      status: PENDING
+  ErrorReasonResponseBody:
+    title: 'Mediatype identifier: errorreason; view=default'
+    type: object
+    properties:
+      code:
+        type: string
+        description: Code
+        example: PAYER_NOT_FOUND
+        enum:
+        - PAYEE_NOT_FOUND
+        - PAYER_NOT_FOUND
+        - NOT_ALLOWED
+        - NOT_ALLOWED_TARGET_ENVIRONMENT
+        - INVALID_CALLBACK_URL_HOST
+        - INVALID_CURRENCY
+        - SERVICE_UNAVAILABLE
+        - INTERNAL_PROCESSING_ERROR
+        - NOT_ENOUGH_FUNDS
+        - PAYER_LIMIT_REACHED
+        - PAYEE_NOT_ALLOWED_TO_RECEIVE
+        - PAYMENT_NOT_APPROVED
+        - RESOURCE_NOT_FOUND
+        - APPROVAL_REJECTED
+        - EXPIRED
+        - TRANSACTION_CANCELED
+        - RESOURCE_ALREADY_EXIST
+      message:
+        type: string
+        description: message
+        example: Payee does not exist
+    description: Error Reason
+    example:
+      code: PAYER_NOT_FOUND
+      message: Payee does not exist
+  PartyRequestBody:
+    title: PartyRequestBody
+    type: object
+    properties:
+      partyId:
+        type: string
+        example: Ipsa exercitationem.
+      partyIdType:
+        type: string
+        description: PartyIdType
+        example: EMAIL
+        enum:
+        - MSISDN
+        - EMAIL
+        - PARTY_CODE
+    description: Party identifies a account holder in the wallet platform.
+    example:
+      partyId: Vel distinctio voluptas.
+      partyIdType: EMAIL
+  PartyResponseBody:
+    title: PartyResponseBody
+    type: object
+    properties:
+      partyId:
+        type: string
+        example: Quaerat et in eos.
+      partyIdType:
+        type: string
+        description: PartyIdType
+        example: PARTY_CODE
+        enum:
+        - MSISDN
+        - EMAIL
+        - PARTY_CODE
+    description: Party identifies a account holder in the wallet platform.
+    example:
+      partyId: Debitis est voluptatem.
+      partyIdType: EMAIL
+  PaymentServerUrlResponseBody:
+    title: PaymentServerUrlResponseBody
+    type: object
+    properties:
+      apiKey:
+        type: string
+        description: The payment server URL
+        example: Dolor ipsam.
+    example:
+      apiKey: Omnis dignissimos ut illo blanditiis veritatis.
+  RemittanceGetBalanceBadRequestResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: false
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: true
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: true
+    description: Bad request, e.g. invalid data was sent in the request. (default view)
+    example:
+      fault: true
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: true
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  RemittanceGetBalanceInternalErrorResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: false
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: true
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: false
+    description: Internal error. The returned response contains details. (default view)
+    example:
+      fault: false
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: false
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  RemittanceGetBalanceResponseBody:
+    title: 'Mediatype identifier: balance; view=default'
+    type: object
+    properties:
+      availableBalance:
+        type: string
+        description: The available balance of the account
+        example: Dolor non adipisci quo.
+      currency:
+        type: string
+        description: ISO4217 Currency
+        example: Error temporibus explicabo.
+    description: GetBalanceResponseBody result type (default view)
+    example:
+      availableBalance: Iusto est.
+      currency: Laborum voluptatem et ea natus cupiditate possimus.
+  RemittanceNewTokenInternalErrorResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: false
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: true
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: false
+    description: Error (default view)
+    example:
+      fault: false
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: true
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  RemittanceNewTokenResponseBody:
+    title: 'Mediatype identifier: tokenpost200applicationjsonresponse; view=default'
+    type: object
+    properties:
+      access_token:
+        type: string
+        description: A JWT token which can be used to authorize against the other API end-points.
+        example: Corrupti quia distinctio dolor omnis tempore.
+      expires_in:
+        type: integer
+        description: The validity time in seconds of the token.
+        example: 468600620
+        format: int32
+      token_type:
+        type: string
+        description: The token type.
+        example: Enim laudantium aperiam veritatis nobis et et.
+    description: NewTokenResponseBody result type (default view)
+    example:
+      access_token: Nostrum vel quas nulla ea neque quod.
+      expires_in: 398194354
+      token_type: Excepturi voluptate.
+  RemittanceNewTokenUnauthorizedResponseBody:
+    title: 'Mediatype identifier: tokenpost401applicationjsonresponse; view=default'
+    type: object
+    properties:
+      error:
+        type: string
+        description: An error code.
+        example: Libero eveniet.
+    description: Unauthorized (default view)
+    example:
+      error: Magnam tempora.
+  RemittanceRetrieveAccountHolderBadRequestResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: false
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: false
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: true
+    description: Bad request, e.g. invalid data was sent in the request. (default view)
+    example:
+      fault: false
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: true
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  RemittanceRetrieveAccountHolderInternalErrorResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: true
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: false
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: true
+    description: Internal error. The returned response contains details. (default view)
+    example:
+      fault: true
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: true
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  RemittanceTransferBadRequestResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: true
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: false
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: true
+    description: Bad request, e.g. invalid data was sent in the request. (default view)
+    example:
+      fault: true
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: false
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  RemittanceTransferConflictResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: true
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: false
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: true
+    description: Conflict, duplicated reference id (default view)
+    example:
+      fault: false
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: true
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  RemittanceTransferInternalErrorResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: true
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: false
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: true
+    description: Internal Error. (default view)
+    example:
+      fault: true
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: false
+      timeout: true
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  RemittanceTransferRequestBody:
+    title: RemittanceTransferRequestBody
+    type: object
+    properties:
+      amount:
+        type: string
+        description: Amount that will be debited from the payer account.
+        example: Saepe dolor quas sint.
+      currency:
+        type: string
+        description: ISO4217 Currency
+        example: Accusamus quas.
+      externalId:
+        type: string
+        description: External id is used as a reference to the transaction.
+        example: Ea corporis laborum.
+      payee:
+        $ref: '#/definitions/PartyRequestBody'
+      payeeNote:
+        type: string
+        description: Message that will be written in the payee transaction history note field.
+        example: Tempore voluptates similique est quam molestias alias.
+      payerMessage:
+        type: string
+        description: Message that will be written in the payer transaction history message field.
+        example: Consequatur est placeat minima voluptatem dolores.
+    example:
+      amount: Maiores qui qui.
+      currency: Nam dicta labore numquam.
+      externalId: Qui quam dolorum.
+      payee:
+        partyId: Corporis perspiciatis provident quis adipisci harum.
+        partyIdType: EMAIL
+      payeeNote: Ut non officia molestiae amet modi qui.
+      payerMessage: Sequi expedita occaecati odio.
+  RemittanceTransferStatusBadRequestResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: false
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: false
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: false
+    description: Bad request, e.g. an incorrectly formatted reference id was provided. (default view)
+    example:
+      fault: false
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: false
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  RemittanceTransferStatusInternalErrorResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: false
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: true
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: true
+    description: Internal Error. Note that if the retreieved transfer has failed, it will not cause this status to be returned. This status is only returned if the GET request itself fails. (default view)
+    example:
+      fault: false
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: false
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  RemittanceTransferStatusNotFoundResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: true
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: true
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: false
+    description: Resource not found. (default view)
+    example:
+      fault: true
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: false
+      timeout: true
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  RemittanceTransferStatusResponseBody:
+    title: 'Mediatype identifier: transferresult; view=default'
+    type: object
+    properties:
+      amount:
+        type: string
+        description: ' Amount that will be debited from the payer account.'
+        example: Suscipit magnam dolores eligendi itaque consequuntur.
+      currency:
+        type: string
+        description: ISO4217 Currency
+        example: Nostrum soluta quaerat et et ipsa voluptatum.
+      externalId:
+        type: string
+        description: External id is used as a reference to the transaction
+        example: Magnam laborum et.
+      financialTransactionId:
+        type: string
+        description: Financial transactionIdd from mobile money manager
+        example: Et accusantium magnam accusantium veritatis.
+      payee:
+        $ref: '#/definitions/PartyResponseBody'
+      payeeNote:
+        type: string
+        description: Message that will be written in the payee transaction history note field.
+        example: Sed omnis vel et est explicabo vitae.
+      reason:
+        $ref: '#/definitions/ErrorReasonResponseBody'
+      status:
+        type: string
+        description: Status
+        example: PENDING
+        enum:
+        - PENDING
+        - SUCCESSFUL
+        - FAILED
+    description: TransferStatusResponseBody result type (default view)
+    example:
+      amount: Corporis qui quod sit aut.
+      currency: Ut nemo eos delectus voluptatum eaque.
+      externalId: Facilis rerum eum cupiditate sed sint.
+      financialTransactionId: Maiores sed magnam doloremque at.
+      payee:
+        partyId: In maxime fuga quo consequatur dolores.
+        partyIdType: MSISDN
+      payeeNote: Similique numquam et quos ut.
+      reason:
+        code: PAYER_NOT_FOUND
+        message: Payee does not exist
+      status: FAILED
+  TargetEnvironmentResponseBody:
+    title: TargetEnvironmentResponseBody
+    type: object
+    properties:
+      apiKey:
+        type: string
+        description: The target environment
+        example: Qui aut soluta voluptatibus.
+    example:
+      apiKey: Ut ea.
+  UserGetUserBadRequestResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: false
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: true
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: false
+    description: Bad request, e.g. invalid data was sent in the request. (default view)
+    example:
+      fault: false
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: false
+      timeout: true
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  UserGetUserDetailsBadRequestResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: true
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: false
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: false
+    description: Bad request, e.g. invalid data was sent in the request. (default view)
+    example:
+      fault: true
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: true
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  UserGetUserDetailsInternalErrorResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: true
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: false
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: true
+    description: Internal error. Check log for information. (default view)
+    example:
+      fault: false
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: false
+      timeout: false
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  UserGetUserDetailsResponseBody:
+    title: 'Mediatype identifier: apiuserresult; view=default'
+    type: object
+    properties:
+      paymentServerUrl:
+        $ref: '#/definitions/PaymentServerUrlResponseBody'
+      providerCallbackHost:
+        type: string
+        description: The provider callback host
+        example: Voluptatem officiis ut distinctio similique maxime voluptatem.
+      targetEnvironment:
+        $ref: '#/definitions/TargetEnvironmentResponseBody'
+    description: GetUserDetailsResponseBody result type (default view)
+    example:
+      paymentServerUrl:
+        apiKey: Quidem illum voluptatibus dolor cum commodi ea.
+      providerCallbackHost: Perferendis dolorum rerum assumenda dolor.
+      targetEnvironment:
+        apiKey: Natus est molestiae quibusdam quis et.
+  UserGetUserInternalErrorResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: false
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: false
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: false
+    description: Internal error. Check log for information. (default view)
+    example:
+      fault: true
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: false
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  UserGetUserNotFoundResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: false
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: false
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: true
+    description: Not found, reference id not found or closed in sandbox (default view)
+    example:
+      fault: true
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: false
+      timeout: true
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  UserGetUserRequestBody:
+    title: UserGetUserRequestBody
+    type: object
+    properties:
+      X-Reference-Id:
+        type: string
+        description: Format - UUID.
+        example: Alias dolores sequi labore qui ad sed.
+    example:
+      X-Reference-Id: Voluptas rem soluta voluptatum perspiciatis molestias nesciunt.
+    required:
+    - X-Reference-Id
+  UserNewKeyBadRequestResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: false
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: false
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: false
+    description: Bad request, e.g. invalid data was sent in the request. (default view)
+    example:
+      fault: true
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: false
+      timeout: false
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  UserNewKeyInternalErrorResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: false
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: false
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: true
+    description: Internal error. Check log for information. (default view)
+    example:
+      fault: false
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: false
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  UserNewKeyNotFoundResponseBody:
+    title: 'Mediatype identifier: errorreason; view=default'
+    type: object
+    properties:
+      code:
+        type: string
+        description: Code
+        example: PAYER_NOT_FOUND
+        enum:
+        - PAYEE_NOT_FOUND
+        - PAYER_NOT_FOUND
+        - NOT_ALLOWED
+        - NOT_ALLOWED_TARGET_ENVIRONMENT
+        - INVALID_CALLBACK_URL_HOST
+        - INVALID_CURRENCY
+        - SERVICE_UNAVAILABLE
+        - INTERNAL_PROCESSING_ERROR
+        - NOT_ENOUGH_FUNDS
+        - PAYER_LIMIT_REACHED
+        - PAYEE_NOT_ALLOWED_TO_RECEIVE
+        - PAYMENT_NOT_APPROVED
+        - RESOURCE_NOT_FOUND
+        - APPROVAL_REJECTED
+        - EXPIRED
+        - TRANSACTION_CANCELED
+        - RESOURCE_ALREADY_EXIST
+      message:
+        type: string
+        description: message
+        example: Payee does not exist
+    description: Not found, reference id not found or closed in sandbox (default view)
+    example:
+      code: PAYER_NOT_FOUND
+      message: Payee does not exist
+  UserNewKeyRequestBody:
+    title: UserNewKeyRequestBody
+    type: object
+    properties:
+      X-Reference-Id:
+        type: string
+        description: Format - UUID.
+        example: Nisi aliquam.
+    example:
+      X-Reference-Id: Voluptas omnis adipisci nihil id porro.
+    required:
+    - X-Reference-Id
+  UserNewKeyResponseBody:
+    title: UserNewKeyResponseBody
+    type: object
+    properties:
+      apiKey:
+        type: string
+        description: The created API user key
+        example: Neque sapiente aut velit.
+    example:
+      apiKey: Voluptas assumenda sit rerum minima.
+  UserNewUserBadRequestResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: false
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: true
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: false
+    description: Bad request, e.g. invalid data was sent in the request. (default view)
+    example:
+      fault: true
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: true
+      timeout: false
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  UserNewUserConflictResponseBody:
+    title: 'Mediatype identifier: errorreason; view=default'
+    type: object
+    properties:
+      code:
+        type: string
+        description: Code
+        example: PAYER_NOT_FOUND
+        enum:
+        - PAYEE_NOT_FOUND
+        - PAYER_NOT_FOUND
+        - NOT_ALLOWED
+        - NOT_ALLOWED_TARGET_ENVIRONMENT
+        - INVALID_CALLBACK_URL_HOST
+        - INVALID_CURRENCY
+        - SERVICE_UNAVAILABLE
+        - INTERNAL_PROCESSING_ERROR
+        - NOT_ENOUGH_FUNDS
+        - PAYER_LIMIT_REACHED
+        - PAYEE_NOT_ALLOWED_TO_RECEIVE
+        - PAYMENT_NOT_APPROVED
+        - RESOURCE_NOT_FOUND
+        - APPROVAL_REJECTED
+        - EXPIRED
+        - TRANSACTION_CANCELED
+        - RESOURCE_ALREADY_EXIST
+      message:
+        type: string
+        description: message
+        example: Payee does not exist
+    description: Conflict, duplicated reference id (default view)
+    example:
+      code: PAYER_NOT_FOUND
+      message: Payee does not exist
+  UserNewUserInternalErrorResponseBody:
+    title: 'Mediatype identifier: application/vnd.goa.error; view=default'
+    type: object
+    properties:
+      fault:
+        type: boolean
+        description: Is the error a server-side fault?
+        example: true
+      id:
+        type: string
+        description: ID is a unique identifier for this particular occurrence of the problem.
+        example: 123abc
+      message:
+        type: string
+        description: Message is a human-readable explanation specific to this occurrence of the problem.
+        example: parameter 'p' must be an integer
+      name:
+        type: string
+        description: Name is the name of this class of errors.
+        example: bad_request
+      temporary:
+        type: boolean
+        description: Is the error temporary?
+        example: true
+      timeout:
+        type: boolean
+        description: Is the error a timeout?
+        example: true
+    description: Internal error. Check log for information. (default view)
+    example:
+      fault: true
+      id: 123abc
+      message: parameter 'p' must be an integer
+      name: bad_request
+      temporary: false
+      timeout: true
+    required:
+    - name
+    - id
+    - message
+    - temporary
+    - timeout
+    - fault
+  UserNewUserRequestBody:
+    title: UserNewUserRequestBody
+    type: object
+    properties:
+      providerCallbackHost:
+        type: string
+        description: The provider callback host
+        example: Sunt autem sed voluptas labore.
+    example:
+      providerCallbackHost: Commodi voluptas omnis numquam eos dolorem et.
+externalDocs:
+  description: Library Usage
+  url: https://github.com/wondenge/momo-go/blob/master/README.md
