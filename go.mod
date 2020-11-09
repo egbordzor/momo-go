@@ -3,13 +3,17 @@ module github.com/wondenge/momo-go
 go 1.14
 
 require (
-	github.com/go-kit/kit v0.10.0
-	github.com/google/go-cmp v0.4.0 // indirect
-	go.uber.org/zap v1.13.0
-	goa.design/goa/v3 v3.1.3
-	goa.design/plugins/v3 v3.1.2
-	golang.org/x/mod v0.3.0 // indirect
-	golang.org/x/net v0.0.0-20200520182314-0ba52f642ac2 // indirect
-	golang.org/x/tools v0.0.0-20200519205726-57a9e4404bf7 // indirect
-	gopkg.in/yaml.v2 v2.3.0 // indirect
+	github.com/asaskevich/govalidator v0.0.0-20200907205600-7a23bdc65eef // indirect
+	github.com/go-openapi/analysis v0.19.11 // indirect
+	github.com/go-openapi/errors v0.19.8
+	github.com/go-openapi/runtime v0.19.23
+	github.com/go-openapi/spec v0.19.12 // indirect
+	github.com/go-openapi/strfmt v0.19.8
+	github.com/go-openapi/swag v0.19.11
+	github.com/go-openapi/validate v0.19.12
+	github.com/mailru/easyjson v0.7.6 // indirect
+	github.com/mitchellh/mapstructure v1.3.3 // indirect
+	go.mongodb.org/mongo-driver v1.4.3 // indirect
+	golang.org/x/net v0.0.0-20201031054903-ff519b6c9102 // indirect
+	golang.org/x/text v0.3.4 // indirect
 )

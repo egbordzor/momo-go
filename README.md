@@ -49,3 +49,10 @@ The partner is required to open an account with MTN and load funds on it to faci
 ## Notice
 
 This library is still under massive development and rapid prototyping.
+
+```bash
+swagger generate client -f ./user.json -A user -a user-go -c user -t pkg
+swagger generate client -f ./collection.json -A collection -a collection-go -c collection -t pkg
+swagger generate client -f ./disbursements.json -A disbursements -a disbursements-go -c disbursements -t pkg
+swagger generate client -f ./remittance.json -A remittance -a remittance-go -c remittance -t pkg
+```
