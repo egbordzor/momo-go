@@ -1,0 +1,16 @@
+/*
+ * Disbursements
+ *
+ * Partner Gateway API document
+ *
+ * API version: 1.0
+ *
+ */
+
+package disbursement
+
+// Party Party identifies a account holder in the wallet platform. Party consists of two parameters, type and partyId. Each type have its own validation of the partyId<br> MSISDN - Mobile Number validated according to ITU-T E.164. Validated with IsMSISDN<br> EMAIL - Validated to be a valid e-mail format. Validated with IsEmail<br> PARTY_CODE - UUID of the party. Validated with IsUuid
+type Party struct {
+	PartyIdType string `json:"partyIdType,omitempty"`
+	PartyId     string `json:"partyId,omitempty"`
+}

@@ -11,6 +11,34 @@ This Golang SDK client interfaces with MTN's MoMo API (Collections, Disbursement
 7. Congo
 8. Swaziland
 
+## Authorization
+
+### apiKeyHeader
+
+Example
+
+```golang
+auth := context.WithValue(context.Background(), sw.ContextAPIKey, sw.APIKey{
+    Key: "APIKEY",
+    Prefix: "Bearer", // Omit if not necessary.
+})
+r, err := client.Service.Operation(auth, args)
+```
+
+### apiKeyQuery
+
+Example
+
+```golang
+auth := context.WithValue(context.Background(), sw.ContextAPIKey, sw.APIKey{
+    Key: "APIKEY",
+    Prefix: "Bearer", // Omit if not necessary.
+})
+r, err := client.Service.Operation(auth, args)
+```
+
+## User API
+
 ## 1. Collections API
 
 This API enables remote collection of bills, fees or taxes. Collections is a service that enables Mobile Money partners to receive payments for goods and services using MTN Mobile Money.
@@ -18,9 +46,7 @@ This API enables remote collection of bills, fees or taxes. Collections is a ser
 The services can be face-to-face like MomoPay or can be done remotely for both offline and online.
 Payments can be customer-initiated on USSD/App/Web or Merchant-initiated where a customer is sent a debit request for approval.
 
-Once the service is enabled, a Collections account is created for the partner to which funds are deposited/received.
-The partner is able to make onward payments to their suppliers/partners/employees (B2B or B2C) and/or liquidate the collected
-funds into their respective bank accounts.
+Once the service is enabled, a Collections account is created for the partner to which funds are deposited/received. The partner is able to make onward payments to their suppliers/partners/employees (B2B or B2C) and/or liquidate the collected funds into their respective bank accounts.
 
 The service offers the convenience of collection for online payments, bills, loan repayments, contribution to activities and installments to mutually agreed upon repayments of services and products. Examples of partners with bill collections are Umeme, National Water, URA, NSSF, DSTV to name but a few.
 
@@ -32,7 +58,7 @@ This setup can be manually executed (logging into the system, uploading recipien
 
 Examples of partners that use this service are: Betting companies to pay winners, Disbursements of funds to refugees/beneficiaries among others.
 
-The expectation is that the partner opens a Disbursement account with MTN and this account is pre-funded to enable the payments once the requests come through from the partner..
+The expectation is that the partner opens a Disbursement account with MTN and this account is pre-funded to enable the payments once the requests come through from the partner.
 
 ## 3. Remittances API
 
@@ -49,10 +75,3 @@ The partner is required to open an account with MTN and load funds on it to faci
 ## Notice
 
 This library is still under massive development and rapid prototyping.
-
-```bash
-swagger generate client -f ./user.json -A user -a user-go -c user -t pkg
-swagger generate client -f ./collection.json -A collection -a collection-go -c collection -t pkg
-swagger generate client -f ./disbursements.json -A disbursements -a disbursements-go -c disbursements -t pkg
-swagger generate client -f ./remittance.json -A remittance -a remittance-go -c remittance -t pkg
-```
