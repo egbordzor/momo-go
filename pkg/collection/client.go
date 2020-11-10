@@ -40,9 +40,9 @@ var (
 	xmlCheck  = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
 )
 
-// APIClient manages communication with the Collection API v1.0
-// In most cases there should be only one, shared, APIClient.
-type APIClient struct {
+// APICollectionClient manages communication with the Collection API v1.0
+// In most cases there should be only one, shared, APICollectionClient.
+type APICollectionClient struct {
 	cfg    *Configuration
 	common service // Reuse a single struct instead of allocating one for each service on the heap.
 
@@ -52,17 +52,17 @@ type APIClient struct {
 }
 
 type service struct {
-	client *APIClient
+	client *APICollectionClient
 }
 
-// NewAPIClient creates a new API client. Requires a userAgent string describing your application.
+// NewCollectionClient creates a new API client. Requires a userAgent string describing your application.
 // optionally a custom http.Client to allow for advanced features such as caching.
-func NewAPIClient(cfg *Configuration) *APIClient {
+func NewCollectionClient(cfg *Configuration) *APICollectionClient {
 	if cfg.HTTPClient == nil {
 		cfg.HTTPClient = http.DefaultClient
 	}
 
-	c := &APIClient{}
+	c := &APICollectionClient{}
 	c.cfg = cfg
 	c.common.client = c
 
@@ -158,7 +158,7 @@ func parameterToJson(obj interface{}) (string, error) {
 }
 
 // callAPI do the request.
-func (c *APIClient) callAPI(request *http.Request) (*http.Response, error) {
+func (c *APICollectionClient) callAPI(request *http.Request) (*http.Response, error) {
 	if c.cfg.Debug {
 		dump, err := httputil.DumpRequestOut(request, true)
 		if err != nil {
@@ -184,18 +184,18 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, error) {
 }
 
 // ChangeBasePath changes base path to allow switching to mocks
-func (c *APIClient) ChangeBasePath(path string) {
+func (c *APICollectionClient) ChangeBasePath(path string) {
 	c.cfg.BasePath = path
 }
 
 // Allow modification of underlying config for alternate implementations and testing
 // Caution: modifying the configuration while live can cause data races and potentially unwanted behavior
-func (c *APIClient) GetConfig() *Configuration {
+func (c *APICollectionClient) GetConfig() *Configuration {
 	return c.cfg
 }
 
 // prepareRequest build the request
-func (c *APIClient) prepareRequest(
+func (c *APICollectionClient) prepareRequest(
 	ctx context.Context,
 	path string, method string,
 	postBody interface{},
@@ -358,7 +358,7 @@ func (c *APIClient) prepareRequest(
 	return req, nil
 }
 
-func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err error) {
+func (c *APICollectionClient) decode(v interface{}, b []byte, contentType string) (err error) {
 	if len(b) == 0 {
 		return nil
 	}
